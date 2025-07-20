@@ -11,17 +11,26 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "doctors")
 public class Doctors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "doctor_id")
     private Long doctorId;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "specialty", nullable = false)
     private String specialty;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
@@ -29,6 +38,12 @@ public class Doctors {
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<Consultations> consultations;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<Prescription> prescriptions;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<LabTest> labTests;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
@@ -118,5 +133,21 @@ public class Doctors {
 
     public void setUser(Users user) {
         this.user = user;
+    }
+
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
+    }
+
+    public List<LabTest> getLabTests() {
+        return labTests;
+    }
+
+    public void setLabTests(List<LabTest> labTests) {
+        this.labTests = labTests;
     }
 }

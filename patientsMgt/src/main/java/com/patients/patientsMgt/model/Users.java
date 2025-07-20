@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,14 +14,32 @@ import jakarta.persistence.Table;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private Role role;
+
+    @Column(name = "is_active", nullable = false)
     private boolean is_active;
+
+    @Column(name = "last_login", nullable = true)
     private LocalDate last_login;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDate created_at;
+    
+    @Column(name = "updated_at", nullable = false)
     private LocalDate updated_at;
 
     @OneToOne(mappedBy = "user")

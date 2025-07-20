@@ -1,5 +1,7 @@
 package com.patients.patientsMgt.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -7,10 +9,20 @@ import jakarta.persistence.*;
 public class Medication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "medication_id")
     private Long medicationId;
+
+    @Column(name = "medication_name", nullable = false)
     private String medicationName;
+
+    @Column(name = "dosage", nullable = false)
     private String dosage;
+
+    @Column(name = "frequency", nullable = false)
     private String frequency;
+
+    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL)
+    private List<PrescriptionDetail> prescriptionDetails;
 
     public Medication() {
     }
@@ -52,6 +64,14 @@ public class Medication {
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    public List<PrescriptionDetail> getPrescriptionDetails() {
+        return prescriptionDetails;
+    }
+
+    public void setPrescriptionDetails(List<PrescriptionDetail> prescriptionDetails) {
+        this.prescriptionDetails = prescriptionDetails;
     }
     
 }

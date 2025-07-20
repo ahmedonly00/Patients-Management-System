@@ -1,13 +1,17 @@
 package com.patients.patientsMgt.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,17 +19,33 @@ import jakarta.persistence.Table;
 public class Insurance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "insurance_id")
     private Long insuranceId;
+
+    @Column(name = "provider_name")
     private String providerName;
+
+    @Column(name = "policy_number")
     private String policyNumber;
+
+    @Column(name = "coverage_details")
     private String coverageDetails;
+
+    @Column(name = "coverage_amount")
     private float  coverage_amount;
+
+    @Column(name = "is_active")
     private boolean is_active;
+
+    @Column(name = "expiry_date")
     private LocalDate expiry_date;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patients patient;
+
+    @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
+    private List<PatientInsurance> patientInsurances;
 
     public Insurance() {}
 
@@ -105,6 +125,14 @@ public class Insurance {
 
     public void setExpiry_date(LocalDate expiry_date) {
         this.expiry_date = expiry_date;
+    }
+
+    public List<PatientInsurance> getPatientInsurances() {
+        return patientInsurances;
+    }
+
+    public void setPatientInsurances(List<PatientInsurance> patientInsurances) {
+        this.patientInsurances = patientInsurances;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.patients.patientsMgt.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,21 +9,40 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "appointments")
 public class Appointments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "appointment_id")
     private Long appointmentId;
-    private String appointmentDate;
-    private String appointmentTime;
+
+    @Column(name = "appointment_date", nullable = false)
+    private LocalDate appointmentDate;
+
+    @Column(name = "appointment_time", nullable = false)
+    private LocalDate appointmentTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "appointment_type", nullable = false)
     private AppointmentType appointmentType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private Status status;
+
+    @Column(name = "notes", nullable = false)
     private String notes;
+
+    @Column(name = "sent_reminder", nullable = false)
     private boolean sentReminder;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDate created_at;
+
+    @Column(name = "updated_at", nullable = false)
     private LocalDate updated_at;
 
     @ManyToOne
@@ -33,12 +53,12 @@ public class Appointments {
     @JoinColumn(name = "doctor_id")
     private Doctors doctor;
 
-    public Appointments() {}
-    
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+    private List<Consultations> consultations;
 
-    public Appointments(Long appointmentId, String appointmentDate, String appointmentTime,
-            AppointmentType appointmentType, Status status, String notes, boolean sentReminder, LocalDate created_at,
-            LocalDate updated_at, Patients patient, Doctors doctor) {
+    public Appointments() {}
+
+    public Appointments(Long appointmentId, LocalDate appointmentDate, LocalDate appointmentTime, AppointmentType appointmentType, Status status, String notes, boolean sentReminder, LocalDate created_at, LocalDate updated_at) {
         this.appointmentId = appointmentId;
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
@@ -48,10 +68,7 @@ public class Appointments {
         this.sentReminder = sentReminder;
         this.created_at = created_at;
         this.updated_at = updated_at;
-        this.patient = patient;
-        this.doctor = doctor;
     }
-
 
     public Long getAppointmentId() {
         return appointmentId;
@@ -61,44 +78,16 @@ public class Appointments {
         this.appointmentId = appointmentId;
     }
 
-    public Patients getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patients patient) {
-        this.patient = patient;
-    }
-
-    public Doctors getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctors doctor) {
-        this.doctor = doctor;
-    }
-
-    public String getAppointmentDate() {
+    public LocalDate getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(String appointmentDate) {
+    public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
-    public String getAppointmentTime() {
+    public LocalDate getAppointmentTime() {
         return appointmentTime;
-    }
-
-    public void setAppointmentTime(String appointmentTime) {
-        this.appointmentTime = appointmentTime;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public AppointmentType getAppointmentType() {
@@ -107,6 +96,14 @@ public class Appointments {
 
     public void setAppointmentType(AppointmentType appointmentType) {
         this.appointmentType = appointmentType;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getNotes() {
@@ -141,6 +138,29 @@ public class Appointments {
         this.updated_at = updated_at;
     }
 
+    public Patients getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patients patient) {
+        this.patient = patient;
+    }
+
+    public Doctors getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctors doctor) {
+        this.doctor = doctor;
+    }
+
+    public List<Consultations> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultations> consultations) {
+        this.consultations = consultations;
+    }
 
     public enum Status {
         SCHEDULED,

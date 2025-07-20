@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,15 +21,35 @@ import jakarta.persistence.Table;
 public class Patients {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "patient_id")
     private Long patientId;
+
+    @Column(name = "full_name", nullable = false)
     private String fullName;
+
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDate date_of_birth;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
     private Gender gender;
+
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "emergency_contact", nullable = false)
     private String emergencyContact;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDate created_at;
+    
+    @Column(name = "updated_at", nullable = false)
     private LocalDate updated_at;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
@@ -43,6 +66,15 @@ public class Patients {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Prescription> prescriptions;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<LabTest> labTests;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Billing> billings;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<PatientInsurance> patientInsurances;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -200,6 +232,30 @@ public class Patients {
 
     public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public List<LabTest> getLabTests() {
+        return labTests;
+    }
+
+    public void setLabTests(List<LabTest> labTests) {
+        this.labTests = labTests;
+    }
+
+    public List<Billing> getBillings() {
+        return billings;
+    }
+
+    public void setBillings(List<Billing> billings) {
+        this.billings = billings;
+    }
+
+    public List<PatientInsurance> getPatientInsurances() {
+        return patientInsurances;
+    }
+
+    public void setPatientInsurances(List<PatientInsurance> patientInsurances) {
+        this.patientInsurances = patientInsurances;
     }
 
     public enum Gender {

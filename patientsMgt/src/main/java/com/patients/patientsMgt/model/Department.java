@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,12 +15,14 @@ import jakarta.persistence.Table;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "department_id")
     private Long departmentId;
-    private DepartmentName departmentName;
-    private boolean is_active;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private List<Consultations> consultations;
+    @Column(name = "department_name", nullable = false)
+    private DepartmentName departmentName;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean is_active;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Doctors> doctors;
@@ -28,12 +30,10 @@ public class Department {
     public Department() {
     }
 
-    public Department(Long departmentId, DepartmentName departmentName, boolean is_active,
-            List<Consultations> consultations, List<Doctors> doctors) {
+    public Department(Long departmentId, DepartmentName departmentName, boolean is_active, List<Doctors> doctors) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.is_active = is_active;
-        this.consultations = consultations;
         this.doctors = doctors;
     }
 
@@ -53,14 +53,6 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public List<Consultations> getConsultations() {
-        return consultations;
-    }
-
-    public void setConsultations(List<Consultations> consultations) {
-        this.consultations = consultations;
-    }
-
     public List<Doctors> getDoctors() {
         return doctors;
     }
@@ -77,6 +69,7 @@ public class Department {
         this.is_active = is_active;
     }   
 
+    
       public enum DepartmentName {
         CARDIOLOGY,
         NEUROLOGY,

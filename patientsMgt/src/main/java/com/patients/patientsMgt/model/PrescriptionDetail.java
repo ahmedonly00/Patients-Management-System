@@ -8,10 +8,19 @@ import java.time.LocalDate;
 public class PrescriptionDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prescription_detail_id")
     private Long prescriptionDetailId;
+
+    @Column(name = "dosage", nullable = false)
     private String dosage;
+
+    @Column(name = "payment_status", nullable = false)
     private String paymentStatus;
+
+    @Column(name = "payment_date", nullable = false)
     private LocalDate paymentDate;
+    
+    @Column(name = "instructions", nullable = false)
     private String instructions;
 
 
