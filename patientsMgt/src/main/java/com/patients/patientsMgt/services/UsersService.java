@@ -25,6 +25,19 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
+    public Users updateUser(Long id, Users userDetails) {
+        Optional<Users> optionalUser = usersRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+            user.setUserName(userDetails.getUserName());
+            user.setPassword(userDetails.getPassword());
+            user.setRole(userDetails.getRole());
+            return usersRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+    }
+
     public void deleteUser(Long id) {
         usersRepository.deleteById(id);
     }

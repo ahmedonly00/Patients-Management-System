@@ -15,5 +15,4 @@ public interface PrescriptionDetailRepository extends JpaRepository<Prescription
     List<PrescriptionDetail> findByMedication(Medication medication);
     List<PrescriptionDetail> findByDosage(String dosage);
     List<PrescriptionDetail> findByFrequency(String frequency);
-    List<PrescriptionDetail> findByDuration(String duration);
 } 

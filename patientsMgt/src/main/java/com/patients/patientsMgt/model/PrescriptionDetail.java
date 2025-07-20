@@ -14,14 +14,23 @@ public class PrescriptionDetail {
     @Column(name = "dosage", nullable = false)
     private String dosage;
 
-    @Column(name = "payment_status", nullable = false)
-    private String paymentStatus;
+    @Column(name = "frequency", nullable = true)
+    private String frequency;
 
-    @Column(name = "payment_date", nullable = false)
-    private LocalDate paymentDate;
-    
+    @Column(name = "duration_days", nullable = true)
+    private int durationDays;
+
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+
     @Column(name = "instructions", nullable = false)
     private String instructions;
+
+    @Column(name = "total_amount", nullable = false)
+    private double totalAmount;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDate createdAt;
 
 
     @ManyToOne
@@ -34,14 +43,19 @@ public class PrescriptionDetail {
 
     public PrescriptionDetail() {}
 
-    public PrescriptionDetail(Long prescriptionDetailId, Prescription prescription, Medication medication, String dosage, String paymentStatus, LocalDate paymentDate, String instructions) {
+    public PrescriptionDetail(Long prescriptionDetailId, Prescription prescription, Medication medication,
+                              String dosage, String frequency, int durationDays, int quantity,
+                              String instructions, double totalAmount, LocalDate createdAt) {
         this.prescriptionDetailId = prescriptionDetailId;
         this.prescription = prescription;
         this.medication = medication;
         this.dosage = dosage;
-        this.paymentStatus = paymentStatus;
-        this.paymentDate = paymentDate;
+        this.frequency = frequency;
+        this.durationDays = durationDays;
+        this.quantity = quantity;
         this.instructions = instructions;
+        this.totalAmount = totalAmount;
+        this.createdAt = createdAt;
     }
 
     public Long getPrescriptionDetailId() {
@@ -76,27 +90,51 @@ public class PrescriptionDetail {
         this.dosage = dosage;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
     public String getInstructions() {
         return instructions;
     }
 
     public void setInstructions(String instructions) {
         this.instructions = instructions;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public int getDurationDays() {
+        return durationDays;
+    }
+
+    public void setDurationDays(int durationDays) {
+        this.durationDays = durationDays;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 }
