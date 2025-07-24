@@ -2,12 +2,7 @@ package com.patients.patientsMgt.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -31,16 +26,29 @@ public class Users {
     private Role role;
 
     @Column(name = "is_active", nullable = false)
-    private boolean is_active;
+    private boolean isActive;
 
     @Column(name = "last_login", nullable = true)
-    private LocalDate last_login;
+    private LocalDate lastLogin;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDate created_at;
+    private LocalDate createdAt;
     
     @Column(name = "updated_at", nullable = false)
-    private LocalDate updated_at;
+    private LocalDate updatedAt;
+
+
+    @PrePersist
+    protected void onCreate() {
+        LocalDate now = LocalDate.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDate.now();
+    }
 
     @OneToOne(mappedBy = "user")
     private Patients patient;
@@ -51,17 +59,17 @@ public class Users {
     public Users() {}
 
 
-    public Users(Long userId, String userName, String email, String password, Role role, boolean is_active,
-            LocalDate last_login, LocalDate created_at, LocalDate updated_at, Patients patient, Doctors doctor) {
+    public Users(Long userId, String userName, String email, String password, Role role, boolean isActive,
+            LocalDate lastLogin, LocalDate createdAt, LocalDate updatedAt, Patients patient, Doctors doctor) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.is_active = is_active;
-        this.last_login = last_login;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+        this.isActive = isActive;
+        this.lastLogin = lastLogin;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.patient = patient;
         this.doctor = doctor;
     }
@@ -123,36 +131,35 @@ public class Users {
         this.role = role;
     }
 
-    public boolean isIs_active() {
-        return is_active;
+    public boolean getIsActive() {
+        return isActive;
+    }
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
+    public LocalDate getLastLogin() {
+        return lastLogin;
     }
 
-    public LocalDate getLast_login() {
-        return last_login;
+    public void setLastLogin(LocalDate lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
-    public void setLast_login(LocalDate last_login) {
-        this.last_login = last_login;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDate getCreated_at() {
-        return created_at;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
     }
 
-    public LocalDate getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(LocalDate updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public enum Role{

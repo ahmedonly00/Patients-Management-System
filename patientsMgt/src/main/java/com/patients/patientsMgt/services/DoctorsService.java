@@ -1,6 +1,7 @@
 package com.patients.patientsMgt.services;
 
 import com.patients.patientsMgt.model.Doctors;
+import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.repository.DoctorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,11 @@ public class DoctorsService {
 
     public Optional<Doctors> getDoctorById(Long id) {
         return doctorsRepository.findById(id);
+    }
+
+    public Doctors findByUser(Users user) {
+        return doctorsRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Doctor not found for user: " + user.getUserName()));
     }
 
     public Doctors saveDoctor(Doctors doctor) {

@@ -1,12 +1,14 @@
 package com.patients.patientsMgt.services;
 
-import com.patients.patientsMgt.model.Patients;
-import com.patients.patientsMgt.repository.PatientsRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.Optional;
+import com.patients.patientsMgt.model.Patients;
+import com.patients.patientsMgt.model.Users;
+import com.patients.patientsMgt.repository.PatientsRepository;
 
 @Service
 public class PatientsService {
@@ -21,8 +23,17 @@ public class PatientsService {
         return patientRepository.findById(id);
     }
 
+    public Patients findByUser(Users user) {
+        return patientRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Patient not found for user: " + user.getUserName()));
+    }
+
     public Patients savePatient(Patients patient) {
         return patientRepository.save(patient);
+    }
+
+    public void updatePatient(Patients patient) {
+        patientRepository.save(patient);
     }
 
     public void deletePatient(Long id) {

@@ -1,15 +1,23 @@
 package com.patients.patientsMgt.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.*;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "appointments")
@@ -23,7 +31,7 @@ public class Appointments {
     private LocalDate appointmentDate;
 
     @Column(name = "appointment_time", nullable = false)
-    private LocalDate appointmentTime;
+    private LocalTime appointmentTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "appointment_type", nullable = false)
@@ -36,9 +44,6 @@ public class Appointments {
     @Column(name = "notes", nullable = false)
     private String notes;
 
-    @Column(name = "sent_reminder", nullable = false)
-    private boolean sentReminder;
-
     @Column(name = "created_at", nullable = false)
     private LocalDate created_at;
 
@@ -49,23 +54,34 @@ public class Appointments {
     @JoinColumn(name = "patient_id")
     private Patients patient;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @ManyToOne()
+    @JoinColumn(name = "doctor_id", nullable = true)
     private Doctors doctor;
 
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
     private List<Consultations> consultations;
 
+    @PrePersist
+    protected void onCreate() {
+        LocalDate now = LocalDate.now();
+        created_at = now;
+        updated_at = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = LocalDate.now();
+    }
+
     public Appointments() {}
 
-    public Appointments(Long appointmentId, LocalDate appointmentDate, LocalDate appointmentTime, AppointmentType appointmentType, Status status, String notes, boolean sentReminder, LocalDate created_at, LocalDate updated_at) {
+    public Appointments(Long appointmentId, LocalDate appointmentDate, LocalTime appointmentTime, AppointmentType appointmentType, Status status, String notes, LocalDate created_at, LocalDate updated_at) {
         this.appointmentId = appointmentId;
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.appointmentType = appointmentType;
         this.status = status;
         this.notes = notes;
-        this.sentReminder = sentReminder;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -86,7 +102,11 @@ public class Appointments {
         this.appointmentDate = appointmentDate;
     }
 
-    public LocalDate getAppointmentTime() {
+    public void setAppointmentTime(LocalTime appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
+    
+    public LocalTime getAppointmentTime() {
         return appointmentTime;
     }
 
@@ -112,14 +132,6 @@ public class Appointments {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public boolean isSentReminder() {
-        return sentReminder;
-    }
-
-    public void setSentReminder(boolean sentReminder) {
-        this.sentReminder = sentReminder;
     }
 
     public LocalDate getCreated_at() {
@@ -163,7 +175,8 @@ public class Appointments {
     }
 
     public enum Status {
-        SCHEDULED,
+        ASSIGNED,
+        PENDING,
         CONFIRMED,
         CANCELLED,
         COMPLETED

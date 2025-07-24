@@ -22,7 +22,7 @@ public class Doctors {
     private Long doctorId;
 
     @Column(name = "name", nullable = false)
-    private String name;
+    private String fullName;
 
     @Column(name = "specialty", nullable = false)
     private String specialty;
@@ -55,9 +55,9 @@ public class Doctors {
 
     public Doctors() {}
 
-    public Doctors(Long doctorId, String name, String specialty, String email, String phoneNumber) {
+    public Doctors(Long doctorId, String fullName, String specialty, String email, String phoneNumber) {
         this.doctorId = doctorId;
-        this.name = name;
+        this.fullName = fullName;
         this.specialty = specialty;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -69,14 +69,6 @@ public class Doctors {
 
     public void setDoctorId(Long doctorId) {
         this.doctorId = doctorId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSpecialty() {
@@ -149,5 +141,13 @@ public class Doctors {
 
     public void setLabTests(List<LabTest> labTests) {
         this.labTests = labTests;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

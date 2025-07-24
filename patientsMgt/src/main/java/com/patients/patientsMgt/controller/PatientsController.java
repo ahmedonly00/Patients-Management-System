@@ -1,19 +1,36 @@
 package com.patients.patientsMgt.controller;
 
-import com.patients.patientsMgt.model.Patients;
-import com.patients.patientsMgt.services.PatientsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.patients.patientsMgt.dto.AppointmentDTO;
+import com.patients.patientsMgt.model.Patients;
+import com.patients.patientsMgt.services.AppointmentsService;
+import com.patients.patientsMgt.services.PatientsService;
+
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("/api/patients")
 public class PatientsController {
+
     @Autowired
     private PatientsService patientsService;
 
+    @Autowired
+    private AppointmentsService appointmentService;
+
+    
     @GetMapping(value = "/all")
     public List<Patients> getAllPatients() {
         return patientsService.getAllPatients();
@@ -39,4 +56,12 @@ public class PatientsController {
     public void deletePatient(@PathVariable Long id) {
         patientsService.deletePatient(id);
     }
+
+    @PostMapping("/book-appointment")
+    public ResponseEntity<?> bookAppointment(@RequestBody AppointmentDTO appointmentDTO, Principal principal) {
+        String username = principal.getName();
+        appointmentService.bookAppointmentAsPatient(username, appointmentDTO);
+        return ResponseEntity.ok("Appointment booked successfully.");
+    }
+
 } 
