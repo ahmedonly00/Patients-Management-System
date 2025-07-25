@@ -1,15 +1,23 @@
 package com.patients.patientsMgt.controller;
 
-import com.patients.patientsMgt.model.Consultations;
-import com.patients.patientsMgt.services.ConsultationsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.patients.patientsMgt.model.Consultations;
+import com.patients.patientsMgt.services.ConsultationsService;
+
 @RestController
-@RequestMapping("/consultations")
+@RequestMapping("/api/consultations")
 public class ConsultationsController {
     @Autowired
     private ConsultationsService consultationsService;

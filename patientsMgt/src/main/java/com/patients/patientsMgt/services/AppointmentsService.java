@@ -43,26 +43,6 @@ public class AppointmentsService {
         
     }
 
-    // public void bookAppointmentAsPatient(String username, AppointmentDTO appointmentDTO) {
-    //     Users user = usersService.findByUsername(username);
-    //     Patients patient = patientService.findByUser(user);
-    //     Doctors doctor = doctorsService.getDoctorById(appointmentDTO.getDoctorId())
-    //             .orElseThrow(() -> new RuntimeException("Doctor not found with ID: " + appointmentDTO.getDoctorId()));
-
-    //     // Map DTO to Entity (if needed)
-    //     Appointments appointment = new Appointments();
-    //     appointment.setPatient(patient);
-    //     appointment.setDoctor(doctor);
-    //     appointment.setAppointmentDate(appointmentDTO.getAppointmentDate());
-    //     appointment.setAppointmentTime(appointmentDTO.getAppointmentTime());
-    //     appointment.setAppointmentType(appointmentDTO.getAppointmentType());
-    //     appointment.setStatus(Appointments.Status.PENDING);
-    //     appointment.setNotes(appointmentDTO.getNotes());
-    //     appointment.setSentReminder(false);
-
-    //     appointmentsRepository.save(appointment);
-    // }
-
     public void bookAppointmentAsPatient(String username, AppointmentDTO appointmentDTO) {
         Users user = usersService.findByUsername(username);
         Patients patient = patientService.findByUser(user);

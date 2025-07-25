@@ -33,8 +33,16 @@ public class SecurityConfig {
                                 .requestMatchers("/api/users/**").permitAll()
                                 .requestMatchers("/api/doctors/**").hasRole("DOCTOR")
                                 .requestMatchers("/api/patients/**").hasAnyRole("PATIENT", "DOCTOR")
-                                .requestMatchers("/departments/**").permitAll()
+                                .requestMatchers("/api/departments/**").permitAll()
                                 .requestMatchers("/api/appointments/**").permitAll()
+                                .requestMatchers("/api/consultations/**").permitAll()
+                                .requestMatchers("/api/insurances/**").permitAll()
+                                .requestMatchers("/api/medications/**").permitAll()
+                                .requestMatchers("/api/payment/**").permitAll()
+                                .requestMatchers("/api/prescriptions/**").permitAll()
+                                .requestMatchers("/api/prescription-details").permitAll()
+
+
                                 .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

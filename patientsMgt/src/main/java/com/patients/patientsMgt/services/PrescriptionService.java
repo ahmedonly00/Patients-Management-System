@@ -1,12 +1,13 @@
 package com.patients.patientsMgt.services;
 
-import com.patients.patientsMgt.model.Prescription;
-import com.patients.patientsMgt.repository.PrescriptionRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.patients.patientsMgt.model.Prescription;
+import com.patients.patientsMgt.repository.PrescriptionRepository;
 
 @Service
 public class PrescriptionService {
@@ -28,4 +29,7 @@ public class PrescriptionService {
     public void deletePrescription(Long id) {
         prescriptionRepository.deleteById(id);
     }
+    
+
+
 } 
