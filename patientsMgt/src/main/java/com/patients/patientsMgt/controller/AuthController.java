@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.patients.patientsMgt.dto.JwtResponse;
 import com.patients.patientsMgt.dto.LoginRequest;
+import com.patients.patientsMgt.jwt.JwtResponse;
 import com.patients.patientsMgt.jwt.JwtService;
 
 @RestController

@@ -2,10 +2,12 @@ package com.patients.patientsMgt.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.patients.patientsMgt.dto.PrescriptionDTO;
 import com.patients.patientsMgt.model.Prescription;
 import com.patients.patientsMgt.repository.PrescriptionRepository;
 
@@ -28,6 +30,14 @@ public class PrescriptionService {
 
     public void deletePrescription(Long id) {
         prescriptionRepository.deleteById(id);
+    }
+
+    
+    public List<PrescriptionDTO> getPrescriptionsByPatient(String email) {
+        return prescriptionRepository.findByPatientEmail(email)
+            .stream()
+            .map(p -> new PrescriptionDTO(p.getId(), p.getDiagnosis(), p.getMedication(), p.getDateIssued()))
+            .collect(Collectors.toList());
     }
     
 

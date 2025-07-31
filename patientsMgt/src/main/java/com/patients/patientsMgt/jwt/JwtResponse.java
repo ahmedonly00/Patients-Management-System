@@ -1,4 +1,4 @@
-package com.patients.patientsMgt.dto;
+package com.patients.patientsMgt.jwt;
 
 public class JwtResponse {
     private String token;

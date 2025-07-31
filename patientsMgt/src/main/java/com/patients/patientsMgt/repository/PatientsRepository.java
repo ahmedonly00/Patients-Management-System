@@ -13,4 +13,5 @@ import com.patients.patientsMgt.model.Users;
 public interface PatientsRepository extends JpaRepository<Patients, Long> {
     List<Patients> findByPatientId(Long patientId);
     Optional<Patients> findByUser(Users user);
+    Optional<Patients> findByUserEmail(String email);
 }

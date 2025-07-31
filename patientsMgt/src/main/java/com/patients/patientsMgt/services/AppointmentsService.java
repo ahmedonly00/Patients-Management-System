@@ -12,13 +12,19 @@ import com.patients.patientsMgt.model.Appointments;
 import com.patients.patientsMgt.model.Doctors;
 import com.patients.patientsMgt.model.Patients;
 import com.patients.patientsMgt.model.Users;
-import com.patients.patientsMgt.repository.AppointmentsRepository;
+import com.patients.patientsMgt.repository.*;
 
 @Service
 public class AppointmentsService {
     
     @Autowired
     private AppointmentsRepository appointmentsRepository;
+
+    @Autowired
+    private DoctorsRepository doctorsRepository;
+
+    @Autowired
+    private PatientsRepository patientsRepository;
 
     @Autowired
     private PatientsService patientService;
@@ -95,4 +101,21 @@ public class AppointmentsService {
             return "Appointment not found.";
         }
     }
+
+    public List<AppointmentDTO> getUpcomingAppointments(String email) {
+    Patients patient = patientsRepository.findByUserEmail(email)
+        .orElseThrow(() -> new RuntimeException("Patient not found"));
+    return appointmentsRepository.findByPatientAndStatusNot(patient, Appointments.Status.COMPLETED)
+        .stream().map(AppointmentMapper::toDTO).toList();
+    }
+
+    
+    public List<AppointmentDTO> getTodaysAppointments(String email) {
+    Doctors doctor = doctorsRepository.findByEmail(email)
+        .orElseThrow(() -> new RuntimeException("Doctor not found"));
+    LocalDate today = LocalDate.now();
+    return appointmentsRepository.findByDoctorAndAppointmentDate(doctor, today)
+        .stream().map(AppointmentMapper::toDTO).toList();
+    }
+
 }
