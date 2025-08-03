@@ -7,6 +7,7 @@ import com.patients.patientsMgt.model.Prescription.Status;
 
 public class PrescriptionDTO {
 
+    private Long prescriptionId;
     private String medication;
     private String dosage;
     private String instructions;
@@ -16,8 +17,9 @@ public class PrescriptionDTO {
     public PrescriptionDTO() {
     }
     
-    public PrescriptionDTO(String medication, String dosage, String instructions, LocalDate prescriptionDate,
+    public PrescriptionDTO(Long prescriptionId,String medication, String dosage, String instructions, LocalDate prescriptionDate,
             Status status) {
+        this.prescriptionId = prescriptionId;
         this.medication = medication;
         this.dosage = dosage;
         this.instructions = instructions;
@@ -63,6 +65,13 @@ public class PrescriptionDTO {
 
     public void setStatus(Status status) {
         this.status = status;
-    } 
-    
+    }
+
+    public Long getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(Long prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
 }

@@ -47,4 +47,10 @@ public class PrescriptionController {
     public void deletePrescription(@PathVariable Long id) {
         prescriptionService.deletePrescription(id);
     }
+
+    @GetMapping(value = "/getPrescriptions")
+    public ResponseEntity<List<PrescriptionDTO>> getPrescriptions(Principal principal) {
+        String email = principal.getName();
+        return ResponseEntity.ok(prescriptionService.getPrescriptionsByPatient(email));
+    }
 } 

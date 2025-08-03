@@ -84,5 +84,4 @@ public class AppointmentDTO {
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
 }

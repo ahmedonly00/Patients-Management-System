@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.patients.patientsMgt.model.LabTest;
 
+import java.util.List;
+
 @Repository
 public interface LabTestRepository extends JpaRepository<LabTest, Long> {
-    
-    
+    List<LabTest> findByPatientUserEmail(String email);
+
 }

@@ -1,6 +1,6 @@
 package com.patients.patientsMgt.services;
 
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,9 +34,9 @@ public class PrescriptionService {
 
     
     public List<PrescriptionDTO> getPrescriptionsByPatient(String email) {
-        return prescriptionRepository.findByPatientEmail(email)
+        return prescriptionRepository.findByPatientUserEmail(email)
             .stream()
-            .map(p -> new PrescriptionDTO(p.getId(), p.getDiagnosis(), p.getMedication(), p.getDateIssued()))
+            .map(p -> new PrescriptionDTO(p.getPrescriptionId(), p.getMedication(), p.getDosage(), p.getInstructions(), p.getPrescriptionDate(), p.getStatus()))
             .collect(Collectors.toList());
     }
     

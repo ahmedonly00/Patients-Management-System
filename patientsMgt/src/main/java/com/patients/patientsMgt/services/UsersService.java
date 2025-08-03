@@ -45,20 +45,6 @@ public class UsersService {
                 .orElseThrow(() -> new RuntimeException("User not found with username: " + email));
     }
 
-    // public Users saveUser(UsersDTO user) {
-    //     if(!usersRepository.findByUserName(user.getUserName()).isEmpty()) {
-    //         throw new RuntimeException("Username already exists: " + user.getUserName());
-    //     }
-        
-    //     Users newUser = new Users();
-    //     newUser.setUserName(user.getUserName());
-    //     newUser.setEmail(user.getEmail());
-    //     newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-    //     newUser.setRole(Role.valueOf(user.getRole()));
-    //     newUser.setIsActive(true);
-    //     return usersRepository.save(newUser);
-    // }
-
     public Users saveUser(UsersDTO dto) {
         if (usersRepository.existsByUserName(dto.getUserName())) {
             throw new RuntimeException("Username already taken");
