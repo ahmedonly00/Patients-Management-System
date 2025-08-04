@@ -3,6 +3,7 @@ package com.patients.patientsMgt.services;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,17 +106,23 @@ public class AppointmentsService {
     public List<AppointmentDTO> getUpcomingAppointments(String email) {
     Patients patient = patientsRepository.findByUserEmail(email)
         .orElseThrow(() -> new RuntimeException("Patient not found"));
+        
     return appointmentsRepository.findByPatientAndStatusNot(patient, Appointments.Status.COMPLETED)
-        .stream().map(AppointmentMapper::toDTO).toList();
+        .stream()
+        .map(p -> new AppointmentDTO(p.getAppointmentDate(), p.getAppointmentTime(), p.getAppointmentType(), p.getStatus(), p.getNotes(), p.getCreated_at(), p.getUpdated_at()))
+        .collect(Collectors.toList());
     }
 
     
     public List<AppointmentDTO> getTodaysAppointments(String email) {
     Doctors doctor = doctorsRepository.findByEmail(email)
         .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
     LocalDate today = LocalDate.now();
     return appointmentsRepository.findByDoctorAndAppointmentDate(doctor, today)
-        .stream().map(AppointmentMapper::toDTO).toList();
+        .stream()
+        .map(p -> new AppointmentDTO(p.getAppointmentDate(), p.getAppointmentTime(), p.getAppointmentType(), p.getStatus(), p.getNotes(), p.getCreated_at(), p.getUpdated_at()))
+        .collect(Collectors.toList());
     }
 
 }

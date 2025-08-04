@@ -20,4 +20,5 @@ public interface ConsultationsRepository extends JpaRepository<Consultations, Lo
     List<Consultations> findByConsultationDate(String consultationDate);
     List<Consultations> findByDiagnosis(String diagnosis);
     List<Consultations> findByStatus(Consultations.Status status);
+    List<Consultations> findByPatientUserEmail(String email);
 }

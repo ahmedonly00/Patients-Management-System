@@ -1,13 +1,13 @@
 package com.patients.patientsMgt.services;
 
-import com.patients.patientsMgt.dto.LabTestDTO;
-import com.patients.patientsMgt.model.LabTest;
-import com.patients.patientsMgt.repository.LabTestRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.patients.patientsMgt.dto.LabTestDTO;
+import com.patients.patientsMgt.repository.LabTestRepository;
 
 @Service
 public class LabTestService {
@@ -28,9 +28,33 @@ public class LabTestService {
     public List<LabTestDTO> getLabResults (String email){
         return labTestRepository.findByPatientUserEmail(email)
                 .stream()
-                .map(p -> new LabTestDTO(p.getLabTestId(), p.getTestType(), p.getTestName(), p.getTestDate(), p.getSampleDate(), p.getResult(), p.getTestStatus(), p.getComments()))
+                .map(p -> new LabTestDTO(
+                        p.getLabTestId(), 
+                        p.getTestType(), 
+                        p.getTestName(), 
+                        p.getTestDate(), 
+                        p.getSampleDate(), 
+                        p.getResult(), 
+                        p.getTestStatus(), 
+                        p.getComments()))
                 .collect(Collectors.toList());
 
     }
+
+    public List<LabTestDTO> getPendingLabResults(String doctorEmail) {
+    return labTestRepository.findPendingTestsByDoctorEmail(doctorEmail)
+            .stream()
+            .map(p -> new LabTestDTO(
+                    p.getLabTestId(),
+                    p.getTestType(),
+                    p.getTestName(),
+                    p.getTestDate(),
+                    p.getSampleDate(),
+                    p.getResult(),
+                    p.getTestStatus(),
+                    p.getComments()
+            ))
+            .collect(Collectors.toList());       
+}
     
 }

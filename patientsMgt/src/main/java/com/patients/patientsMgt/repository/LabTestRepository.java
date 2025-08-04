@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface LabTestRepository extends JpaRepository<LabTest, Long> {
     List<LabTest> findByPatientUserEmail(String email);
+    List<LabTest> findPendingTestsByDoctorEmail(String email);
+
 
 }

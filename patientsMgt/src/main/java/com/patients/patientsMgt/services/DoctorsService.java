@@ -1,5 +1,6 @@
 package com.patients.patientsMgt.services;
 
+import com.patients.patientsMgt.dto.DoctorsDTO;
 import com.patients.patientsMgt.model.Doctors;
 import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.repository.DoctorsRepository;
@@ -33,5 +34,19 @@ public class DoctorsService {
 
     public void deleteDoctor(Long id) {
         doctorsRepository.deleteById(id);
+    }
+
+    public DoctorsDTO getDoctorInfo(String email) {
+        Doctors doctors = doctorsRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        return new DoctorsDTO(
+            doctors.getDoctorId(), 
+            doctors.getFullName(),
+            doctors.getSpecialty(),
+            doctors.getDepartment(),
+            doctors.getEmail(),
+            doctors.getPhoneNumber());
+
     }
 } 

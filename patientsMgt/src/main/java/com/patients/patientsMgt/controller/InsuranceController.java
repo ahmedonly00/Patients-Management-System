@@ -1,9 +1,11 @@
 package com.patients.patientsMgt.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patients.patientsMgt.dto.InsuranceDTO;
 import com.patients.patientsMgt.model.Insurance;
 import com.patients.patientsMgt.services.InsuranceService;
 
 @RestController
-@RequestMapping("/api/insurances")
+@RequestMapping("/api/insurance")
 public class InsuranceController {
     @Autowired
     private InsuranceService insuranceService;
@@ -46,5 +49,11 @@ public class InsuranceController {
     @DeleteMapping(value = "/deleteInsurance/{id}")
     public void deleteInsurance(@PathVariable Long id) {
         insuranceService.deleteInsurance(id);
+    }
+
+    @GetMapping(value = "/getInsuranceByPatient")
+    public ResponseEntity<List<InsuranceDTO>> getInsuranceByPatient(Principal principal){
+        String email = principal.getName();
+        return ResponseEntity.ok(insuranceService.getInsuranceByPatient(email));
     }
 } 

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.patients.patientsMgt.dto.PatientsDTO;
 import com.patients.patientsMgt.model.Patients;
 import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.repository.PatientsRepository;
@@ -38,5 +39,21 @@ public class PatientsService {
 
     public void deletePatient(Long id) {
         patientRepository.deleteById(id);
+    }
+
+    public PatientsDTO getPatientInfo(String email) {
+        Patients patients = patientRepository.findByUserEmail(email)
+            .orElseThrow(() -> new RuntimeException("Patient Not Found"));
+
+        return new PatientsDTO(
+            patients.getPatientId(),
+            patients.getFullName(),
+            patients.getDate_of_birth(),
+            patients.getGender(),
+            patients.getPhoneNumber(),
+            patients.getEmail(),
+            patients.getAddress(),
+            patients.getEmergencyContact());    
+
     }
 } 

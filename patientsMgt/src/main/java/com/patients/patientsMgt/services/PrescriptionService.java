@@ -36,10 +36,14 @@ public class PrescriptionService {
     public List<PrescriptionDTO> getPrescriptionsByPatient(String email) {
         return prescriptionRepository.findByPatientUserEmail(email)
             .stream()
-            .map(p -> new PrescriptionDTO(p.getPrescriptionId(), p.getMedication(), p.getDosage(), p.getInstructions(), p.getPrescriptionDate(), p.getStatus()))
+            .map(p -> new PrescriptionDTO(
+                p.getPrescriptionId(), 
+                p.getMedication(), 
+                p.getDosage(), 
+                p.getInstructions(), 
+                p.getPrescriptionDate(), 
+                p.getStatus()))
             .collect(Collectors.toList());
     }
-    
-
 
 } 

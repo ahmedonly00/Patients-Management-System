@@ -1,7 +1,6 @@
 package com.patients.patientsMgt.dto;
 
 import com.patients.patientsMgt.model.Consultations;
-import jakarta.persistence.*;
 
 public class ConsultationsDTO {
 

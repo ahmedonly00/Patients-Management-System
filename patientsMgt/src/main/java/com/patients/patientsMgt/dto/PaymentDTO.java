@@ -1,7 +1,6 @@
 package com.patients.patientsMgt.dto;
 
 import com.patients.patientsMgt.model.Payment;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
 

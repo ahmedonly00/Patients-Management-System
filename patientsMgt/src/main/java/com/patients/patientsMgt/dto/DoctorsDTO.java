@@ -1,9 +1,6 @@
 package com.patients.patientsMgt.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.patients.patientsMgt.model.Department;
 
 public class DoctorsDTO {
 
@@ -13,17 +10,21 @@ public class DoctorsDTO {
 
     private String specialty;
 
+    private Department department;
+
     private String email;
 
     private String phoneNumber;
 
+
     public DoctorsDTO() {
     }
 
-    public DoctorsDTO(Long doctorId, String fullName, String specialty, String email, String phoneNumber) {
+    public DoctorsDTO(Long doctorId, String fullName, String specialty,Department department ,String email, String phoneNumber) {
         this.doctorId = doctorId;
         this.fullName = fullName;
         this.specialty = specialty;
+        this.department = department;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -67,4 +68,13 @@ public class DoctorsDTO {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
 }
