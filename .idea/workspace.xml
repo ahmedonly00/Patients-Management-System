@@ -5,26 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="340c615b-cea6-4b29-ab29-3bd9b3bd3944" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/LabTestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/jwt/OpenApiConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/PrescriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/PrescriptionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/AppointmentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/AppointmentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/BillingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/BillingDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/ConsultationsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/ConsultationsDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/DoctorsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/DoctorsDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/InsuranceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/InsuranceDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/LabTestResultDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/LabTestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/MedicalHistoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/MedicalHistoryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/MedicationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/MedicationDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PatientInsuranceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PatientInsuranceDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PaymentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PrescriptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PrescriptionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PrescriptionDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PrescriptionDetailDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/LabTestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/LabTestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/PrescriptionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/PrescriptionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/LabTestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/LabTestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PrescriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PrescriptionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/UsersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/jwt/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/jwt/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/DoctorDashboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/DoctorDashboardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PatientDashboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PatientDashboardService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +27,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -51,6 +40,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.PatientsMgtApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
