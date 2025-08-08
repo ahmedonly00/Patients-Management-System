@@ -6,13 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="340c615b-cea6-4b29-ab29-3bd9b3bd3944" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/DoctorsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/DoctorsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/BillingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/BillingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/ConsultationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/ConsultationsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/LabTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/LabTestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/PaymentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/PrescriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/PrescriptionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/jwt/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/jwt/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Appointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Appointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Prescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Prescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/AppointmentsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/AppointmentsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/DoctorsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/DoctorsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/DoctorsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/DoctorsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/BillingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/BillingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/ConsultationsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/ConsultationsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/PatientsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/PatientsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/BillingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/BillingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/ConsultationsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/ConsultationsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/LabTestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/LabTestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PaymentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PrescriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PrescriptionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,19 +50,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.PatientsMgtApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Desktop/Patients-Management-System",
-    "settings.editor.selected.configurable": "copyright"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.PatientsMgtApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Desktop/Patients-Management-System&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;copyright&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

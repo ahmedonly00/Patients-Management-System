@@ -1,7 +1,9 @@
 package com.patients.patientsMgt.services;
 
 import com.patients.patientsMgt.dto.PatientsDTO;
+import com.patients.patientsMgt.model.Appointments;
 import com.patients.patientsMgt.model.Consultations;
+import com.patients.patientsMgt.repository.AppointmentsRepository;
 import com.patients.patientsMgt.repository.ConsultationsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ConsultationsService {
     @Autowired
     private DoctorsRepository doctorsRepository;
 
+    @Autowired
+    private AppointmentsRepository appointmentsRepository;
+
 
     public List<Consultations> getAllConsultations() {
         return consultationsRepository.findAll();
@@ -30,10 +35,6 @@ public class ConsultationsService {
 
     public Optional<Consultations> getConsultationById(Long id) {
         return consultationsRepository.findById(id);
-    }
-
-    public Consultations saveConsultation(Consultations consultation) {
-        return consultationsRepository.save(consultation);
     }
 
     public void deleteConsultation(Long id) {
@@ -111,5 +112,50 @@ public class ConsultationsService {
                         p.getEmergencyContact()))
                 .collect(Collectors.toList());
 
+    }
+
+    public Consultations createConsultation(Long appointmentId, ConsultationsDTO dto, String doctorUsername) {
+        Appointments appointments = appointmentsRepository.findByAppointmentId(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment Not Found"));
+
+        Doctors doctors = doctorsRepository.findByFullName(doctorUsername)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        Consultations consultation = new Consultations();
+        consultation.setAppointment(appointments);
+        consultation.setDoctor(doctors);
+        consultation.setConsultationDate(dto.getConsultationDate());
+        consultation.setConsultationType(dto.getConsultationType());
+        consultation.setHistory_of_illness(dto.getHistory_of_illness());
+        consultation.setPhysicalExamination(dto.getPhysicalExamination());
+        consultation.setTreatmentPlan(dto.getTreatmentPlan());
+        consultation.setNotes(dto.getNotes());
+        consultation.setDiagnosis(dto.getDiagnosis());
+        consultation.setStatus(dto.getStatus());
+
+        return consultationsRepository.save(consultation);
+    }
+
+    public Consultations updateConsultation(Long consultationId, ConsultationsDTO dto, String doctorUsername) {
+        Consultations consultation = consultationsRepository.findByConsultationId(consultationId)
+                .orElseThrow(() -> new RuntimeException("Consultation not found"));
+
+        Doctors doctors = doctorsRepository.findByFullName(doctorUsername)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        if (!consultation.getDoctor().getDoctorId().equals(doctors.getDoctorId())) {
+            throw new RuntimeException("You are not authorized to update this prescription");
+        }
+
+        consultation.setConsultationType(dto.getConsultationType());
+        consultation.setConsultationType(dto.getConsultationType());
+        consultation.setHistory_of_illness(dto.getHistory_of_illness());
+        consultation.setPhysicalExamination(dto.getPhysicalExamination());
+        consultation.setTreatmentPlan(dto.getTreatmentPlan());
+        consultation.setNotes(dto.getNotes());
+        consultation.setDiagnosis(dto.getDiagnosis());
+        consultation.setStatus(dto.getStatus());
+
+        return consultationsRepository.save(consultation);
     }
 }

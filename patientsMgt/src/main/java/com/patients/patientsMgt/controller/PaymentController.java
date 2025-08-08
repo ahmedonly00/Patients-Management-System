@@ -1,9 +1,14 @@
 package com.patients.patientsMgt.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import com.patients.patientsMgt.dto.BillingDTO;
+import com.patients.patientsMgt.dto.PaymentDTO;
+import com.patients.patientsMgt.model.Billing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,15 +38,21 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/createPayment")
-    public Payment createPayment(@RequestBody Payment payment) {
-        return paymentService.savePayment(payment);
+    public ResponseEntity<Payment> createBilling(
+            @PathVariable Long consultationId,
+            @RequestBody PaymentDTO dto,
+            Principal principal ) {
+
+        String patientUsername = principal.getName();
+        Payment createPayment = paymentService.createPayment(consultationId, dto, patientUsername);
+        return ResponseEntity.ok(createPayment);
     }
 
-    @PutMapping(value = "/updatePayment/{id}")
-    public Payment updatePayment(@PathVariable Long id, @RequestBody Payment payment) {
-        payment.setPaymentId(id);
-        return paymentService.savePayment(payment);
-    }
+//    @PutMapping(value = "/updatePayment/{id}")
+//    public Payment updatePayment(@PathVariable Long id, @RequestBody Payment payment) {
+//        payment.setPaymentId(id);
+//        return paymentService.savePayment(payment);
+//    }
 
     @DeleteMapping(value = "/deletePayment  /{id}")
     public void deletePayment(@PathVariable Long id) {

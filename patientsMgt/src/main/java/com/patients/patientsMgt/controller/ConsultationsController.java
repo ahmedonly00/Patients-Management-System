@@ -1,9 +1,14 @@
 package com.patients.patientsMgt.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import com.patients.patientsMgt.dto.ConsultationsDTO;
+import com.patients.patientsMgt.dto.PrescriptionDTO;
+import com.patients.patientsMgt.model.Prescription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,14 +38,14 @@ public class ConsultationsController {
     }
 
     @PostMapping(value = "/createConsultation")
-    public Consultations createConsultation(@RequestBody Consultations consultation) {
-        return consultationsService.saveConsultation(consultation);
-    }
+    public ResponseEntity<Consultations> createConsultation(
+            @PathVariable Long appointmentId,
+            @RequestBody ConsultationsDTO dto,
+            Principal principal ) {
 
-    @PutMapping(value = "/updateConsultation/{id}")
-    public Consultations updateConsultation(@PathVariable Long id, @RequestBody Consultations consultation) {
-        consultation.setConsultationId(id);
-        return consultationsService.saveConsultation(consultation);
+        String doctorUsername = principal.getName();
+        Consultations createConsultation = consultationsService.createConsultation(appointmentId, dto, doctorUsername);
+        return ResponseEntity.ok(createConsultation);
     }
 
     @DeleteMapping(value = "/deleteConsultation/{id}")

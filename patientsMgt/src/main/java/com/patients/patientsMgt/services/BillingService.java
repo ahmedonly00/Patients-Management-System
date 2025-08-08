@@ -3,6 +3,10 @@ package com.patients.patientsMgt.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.patients.patientsMgt.dto.LabTestDTO;
+import com.patients.patientsMgt.model.*;
+import com.patients.patientsMgt.repository.ConsultationsRepository;
+import com.patients.patientsMgt.repository.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,12 @@ public class BillingService {
 
     @Autowired
     private BillingRepository billingRepository;
+
+    @Autowired
+    private PatientsRepository patientsRepository;
+
+    @Autowired
+    private ConsultationsRepository consultationsRepository;
 
     public List<BillingDTO> getBillsByPatient(String email){
         return billingRepository.findByPatientUserEmail(email)
@@ -33,5 +43,27 @@ public class BillingService {
                 .collect(Collectors.toList());
         
     }
-    
+
+    public Billing createBilling(Long consultationId, BillingDTO dto, String patientEmail) {
+        Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
+                .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
+
+        Patients patients = patientsRepository.findByUserEmail(patientEmail)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+        Billing billing = new Billing();
+        billing.setConsultation(consultations);
+        billing.setPatient(patients);
+        billing.setConsultationFee(dto.getConsultationFee());
+        billing.setMedicationCost(dto.getMedicationCost());
+        billing.setLabTestFee(dto.getLabTestFee());
+        billing.setTotalAmount(dto.getTotalAmount());
+        billing.setInsuranceCoverage(dto.getInsuranceCoverage());
+        billing.setPatientPayableAmount(dto.getPatientPayableAmount());
+        billing.setBillingStatus(dto.getBillingStatus());
+        billing.setDueDate(dto.getDueDate());
+
+        return billingRepository.save(billing);
+    }
+
 }

@@ -35,6 +35,16 @@ public class PrescriptionController {
         return prescriptionService.getPrescriptionById(id);
     }
 
+//    @PostMapping(value = "/createPrescription")
+//    public ResponseEntity<Prescription> createPrescription(
+//            @PathVariable Long consultationId,
+//            @RequestBody PrescriptionDTO dto,
+//            Principal principal ) {
+//        String doctorUsername = principal.getName();
+//        Prescription createPrescription = prescriptionService.createPrescription(consultationId, dto, doctorUsername);
+//        return ResponseEntity.ok(createPrescription);
+//    }
+
     @PutMapping("/{prescriptionId}")
     public ResponseEntity<Prescription> updatePrescription(
             @PathVariable Long prescriptionId,
@@ -45,6 +55,7 @@ public class PrescriptionController {
         Prescription updatedPrescription = prescriptionService.updatePrescription(prescriptionId, dto, doctorUsername);
         return ResponseEntity.ok(updatedPrescription);
     }
+
 
     @DeleteMapping(value = "/deletePrescription/{id}")
     public void deletePrescription(@PathVariable Long id) {

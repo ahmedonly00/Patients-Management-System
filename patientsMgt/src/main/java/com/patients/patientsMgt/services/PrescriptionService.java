@@ -4,9 +4,9 @@ import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.patients.patientsMgt.model.Appointments;
+import com.patients.patientsMgt.model.Consultations;
 import com.patients.patientsMgt.model.Doctors;
-import com.patients.patientsMgt.repository.AppointmentsRepository;
+import com.patients.patientsMgt.repository.ConsultationsRepository;
 import com.patients.patientsMgt.repository.DoctorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class PrescriptionService {
     private PrescriptionRepository prescriptionRepository;
 
     @Autowired
-    private AppointmentsRepository appointmentsRepository;
+    private ConsultationsRepository consultationsRepository;
 
     @Autowired
     private DoctorsRepository doctorsRepository;
@@ -35,15 +35,15 @@ public class PrescriptionService {
         return prescriptionRepository.findById(id);
     }
 
-    public void createPrescription(Long appointmentId, PrescriptionDTO dto, String doctorUsername) {
-        Appointments appointments = appointmentsRepository.findByAppointmentId(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Appointment Not Found"));
+    public Prescription createPrescription(Long consultationId, PrescriptionDTO dto, String doctorUsername) {
+        Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
+                .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
 
         Doctors doctors = doctorsRepository.findByFullName(doctorUsername)
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
         Prescription prescription = new Prescription();
-        prescription.setAppointment(appointments);
+        prescription.setConsultation(consultations);
         prescription.setDoctor(doctors);
         prescription.setMedication(dto.getMedication());
         prescription.setDosage(dto.getDosage());
@@ -51,7 +51,7 @@ public class PrescriptionService {
         prescription.setPrescriptionDate(dto.getPrescriptionDate());
         prescription.setStatus(dto.getStatus());
 
-        prescriptionRepository.save(prescription);
+        return prescriptionRepository.save(prescription);
     }
 
     public Prescription updatePrescription(Long prescriptionId, PrescriptionDTO dto, String doctorUsername) {
@@ -73,7 +73,6 @@ public class PrescriptionService {
 
         return prescriptionRepository.save(prescription);
     }
-
 
 
     public void deletePrescription(Long id) {

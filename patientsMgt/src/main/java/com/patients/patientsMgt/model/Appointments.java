@@ -61,10 +61,6 @@ public class Appointments {
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
     private List<Consultations> consultations;
 
-    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
-    private List<Prescription> prescriptions;
-
-
     @PrePersist
     protected void onCreate() {
         LocalDate now = LocalDate.now();
@@ -178,13 +174,6 @@ public class Appointments {
         this.consultations = consultations;
     }
 
-    public List<Prescription> getPrescriptions() {
-        return prescriptions;
-    }
-
-    public void setPrescriptions(List<Prescription> prescriptions) {
-        this.prescriptions = prescriptions;
-    }
 
     public enum Status {
         ASSIGNED,

@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface ConsultationsRepository extends JpaRepository<Consultations, Long> {
-    List<Consultations> findByConsultationId(Long consultationId);
+    Optional<Consultations> findByConsultationId(Long consultationId);
     List<Consultations> findByPatient(Patients patient);
     List<Consultations> findByDoctor(Doctors doctor);
     List<Consultations> findByDepartment(Department department);

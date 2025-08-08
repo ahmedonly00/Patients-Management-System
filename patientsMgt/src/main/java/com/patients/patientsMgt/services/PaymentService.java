@@ -1,6 +1,13 @@
 package com.patients.patientsMgt.services;
 
+import com.patients.patientsMgt.dto.BillingDTO;
+import com.patients.patientsMgt.dto.PaymentDTO;
+import com.patients.patientsMgt.model.Billing;
+import com.patients.patientsMgt.model.Consultations;
+import com.patients.patientsMgt.model.Patients;
 import com.patients.patientsMgt.model.Payment;
+import com.patients.patientsMgt.repository.ConsultationsRepository;
+import com.patients.patientsMgt.repository.PatientsRepository;
 import com.patients.patientsMgt.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +20,12 @@ public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    @Autowired
+    private ConsultationsRepository consultationsRepository;
+
+    @Autowired
+    private PatientsRepository patientsRepository;
+
     public List<Payment> getAllPayments() {
         return paymentRepository.findAll();
     }
@@ -21,11 +34,28 @@ public class PaymentService {
         return paymentRepository.findById(id);
     }
 
-    public Payment savePayment(Payment payment) {
-        return paymentRepository.save(payment);
-    }
-
     public void deletePayment(Long id) {
         paymentRepository.deleteById(id);
+    }
+
+    public Payment createPayment(Long consultationId, PaymentDTO dto, String patientEmail) {
+        Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
+                .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
+
+        Patients patients = patientsRepository.findByUserEmail(patientEmail)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+        Payment payment = new Payment();
+        payment.setConsultation(consultations);
+        payment.setPatient(patients);
+        payment.setPaymentType(dto.getPaymentType());
+        payment.setAmount(dto.getAmount());
+        payment.setPaymentMethod(dto.getPaymentMethod());
+        payment.setPaymentStatus(dto.getPaymentStatus());
+        payment.setPaymentDate(dto.getPaymentDate());
+        payment.setTransactionId(dto.getTransactionId());
+        payment.setNotes(dto.getNotes());
+
+        return paymentRepository.save(payment);
     }
 } 
