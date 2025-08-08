@@ -32,9 +32,11 @@ public class DoctorsService {
         return doctorsRepository.save(doctor);
     }
 
+
     public void deleteDoctor(Long id) {
         doctorsRepository.deleteById(id);
     }
+
 
     public DoctorsDTO getDoctorInfo(String email) {
         Doctors doctors = doctorsRepository.findByEmail(email)

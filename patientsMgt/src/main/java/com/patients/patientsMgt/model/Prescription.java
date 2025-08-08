@@ -52,6 +52,10 @@ public class Prescription {
     @JoinColumn(name = "consultation_id")
     private Consultations consultation;
 
+    @ManyToOne
+    @JoinColumn(name = "appointment_id")
+    private Appointments appointment;
+
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
     private List<PrescriptionDetail> prescriptionDetails;
 
@@ -148,7 +152,14 @@ public class Prescription {
     public void setPrescriptionDetails(List<PrescriptionDetail> prescriptionDetails) {
         this.prescriptionDetails = prescriptionDetails;
     }
-    
+
+    public Appointments getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointments appointment) {
+        this.appointment = appointment;
+    }
 
     public enum Status {
         ACTIVE, 

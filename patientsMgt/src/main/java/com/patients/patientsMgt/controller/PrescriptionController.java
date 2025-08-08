@@ -35,21 +35,22 @@ public class PrescriptionController {
         return prescriptionService.getPrescriptionById(id);
     }
 
-    @PostMapping(value = "/createPrescription")
-    public Prescription createPrescription(@RequestBody Prescription prescription) {
-        return prescriptionService.savePrescription(prescription);
-    }
+    @PutMapping("/{prescriptionId}")
+    public ResponseEntity<Prescription> updatePrescription(
+            @PathVariable Long prescriptionId,
+            @RequestBody PrescriptionDTO dto,
+            Principal principal) {
 
-    @PutMapping(value = "/updatePrescription/{id}")
-    public Prescription updatePrescription(@PathVariable Long id, @RequestBody Prescription prescription) {
-        prescription.setPrescriptionId(id);
-        return prescriptionService.savePrescription(prescription);
+        String doctorUsername = principal.getName();
+        Prescription updatedPrescription = prescriptionService.updatePrescription(prescriptionId, dto, doctorUsername);
+        return ResponseEntity.ok(updatedPrescription);
     }
 
     @DeleteMapping(value = "/deletePrescription/{id}")
     public void deletePrescription(@PathVariable Long id) {
         prescriptionService.deletePrescription(id);
     }
+
 
     @GetMapping(value = "/getPrescriptions")
     public ResponseEntity<List<PrescriptionDTO>> getPrescriptions(Principal principal) {

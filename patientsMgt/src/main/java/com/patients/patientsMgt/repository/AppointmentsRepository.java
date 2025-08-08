@@ -2,6 +2,7 @@ package com.patients.patientsMgt.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import com.patients.patientsMgt.model.Patients;
 
 @Repository
 public interface AppointmentsRepository extends JpaRepository<Appointments, Long> {
-    List<Appointments> findByAppointmentId(Long appointmentId);
+    Optional<Appointments> findByAppointmentId(Long appointmentId);
     List<Appointments> findByPatient(Patients patient);
     List<Appointments> findByDoctor(Doctors doctor);
     List<Appointments> findByDoctorAndAppointmentDate(Doctors doctor, LocalDate today);
