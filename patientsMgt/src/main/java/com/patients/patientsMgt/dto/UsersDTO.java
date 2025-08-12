@@ -7,8 +7,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class UsersDTO {
+
     @NotBlank
-    private String userName;
+    @Email
+    private String email;
 
     @NotBlank
     private String password;
@@ -16,58 +18,18 @@ public class UsersDTO {
     @NotBlank
     private String role;
 
-    @NotBlank
-    @Email
-    private String email;
-
-    @NotBlank
-    private String fullName;
-
-    @NotBlank
-    private String phoneNumber;
-
-    @NotBlank
-    private String address;
-
-    @NotBlank
-    private String specialty;
-
-    @NotBlank
-    private String emergencyContact;
-
-    @NotBlank
-    private String gender;
-
-    @NotNull
-    private LocalDate date_of_birth;
-
     @NotNull
     private boolean isActive;
 
     public UsersDTO() {}
 
-    public UsersDTO(@NotBlank String userName, @NotBlank String password, @NotBlank String role,
-            @NotBlank @Email String email, @NotBlank String fullName, @NotBlank String phoneNumber,
-            @NotBlank String address, @NotBlank String specialty, @NotBlank String emergencyContact,@NotBlank String gender,@NotNull boolean isActive) {
-        this.userName = userName;
+    public UsersDTO(@NotBlank @Email String email, @NotBlank String password,
+                    @NotBlank String role,
+                    @NotNull boolean isActive) {
         this.password = password;
         this.role = role;
         this.email = email;
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.specialty = specialty;
-        this.emergencyContact = emergencyContact;
-        this.gender = gender;
         this.isActive = isActive;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassword() {
@@ -94,28 +56,6 @@ public class UsersDTO {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getSpecialty() {
-        return specialty;
-    }
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
     public boolean isActive() {
         return isActive;
     }
@@ -124,36 +64,5 @@ public class UsersDTO {
         this.isActive = isActive;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmergencyContact() {
-        return emergencyContact;
-    }
-
-    public void setEmergencyContact(String emergencyContact) {
-        this.emergencyContact = emergencyContact;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public LocalDate getDate_of_birth() {
-        return date_of_birth;
-    }
-
-    public void setDate_of_birth(LocalDate date_of_birth) {
-        this.date_of_birth = date_of_birth;
-    }
-    
 }

@@ -1,4 +1,4 @@
-package com.patients.patientsMgt.jwt;
+package com.patients.patientsMgt.config;
 
 import java.util.List;
 import java.util.Optional;

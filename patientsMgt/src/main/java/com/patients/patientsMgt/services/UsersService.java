@@ -3,15 +3,16 @@ package com.patients.patientsMgt.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.patients.patientsMgt.dto.DoctorsDTO;
+import com.patients.patientsMgt.dto.PatientsDTO;
+import com.patients.patientsMgt.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.patients.patientsMgt.dto.UsersDTO;
 import com.patients.patientsMgt.model.Doctors;
 import com.patients.patientsMgt.model.Patients;
 import com.patients.patientsMgt.model.Patients.Gender;
-import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.model.Users.Role;
 import com.patients.patientsMgt.repository.DoctorsRepository;
 import com.patients.patientsMgt.repository.PatientsRepository;
@@ -24,7 +25,7 @@ public class UsersService {
 
     @Autowired
     private PatientsRepository patientRepository;
-    
+
     @Autowired
     private DoctorsRepository doctorRepository;
 
@@ -45,50 +46,44 @@ public class UsersService {
                 .orElseThrow(() -> new RuntimeException("User not found with username: " + email));
     }
 
-    public Users saveUser(UsersDTO dto) {
-        if (usersRepository.existsByUserName(dto.getUserName())) {
-            throw new RuntimeException("Username already taken");
+    public String registerPatient(PatientsDTO dto) {
+        if (patientRepository.findByUserEmail(dto.getEmail()).isPresent()) {
+            throw new RuntimeException("Patient already exist");
         }
 
-        Users user = new Users();
-        user.setUserName(dto.getUserName());
-        user.setEmail(dto.getEmail());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setRole(Role.valueOf(dto.getRole()));
-        user.setIsActive(true);
-        Users savedUser = usersRepository.save(user);
+        Patients patients = new Patients();
+        patients.setFullName(dto.getFullName());
+        patients.setDate_of_birth(dto.getDate_of_birth());
+        patients.setGender(dto.getGender());
+        patients.setPhoneNumber(dto.getPhoneNumber());
+        patients.setEmail(dto.getEmail());
+        patients.setAddress(dto.getAddress());
+        patients.setEmergencyContact(dto.getEmergencyContact());
+        patientRepository.save(patients);
 
-        Role userRole = Role.valueOf(dto.getRole());
+        return "Patients Registered Successfully!";
+    }
 
-        if (userRole.equals(Role.PATIENT)) {
-            Patients patient = new Patients();
-            patient.setFullName(dto.getFullName());
-            patient.setPhoneNumber(dto.getPhoneNumber());
-            patient.setEmail(dto.getEmail());
-            patient.setAddress(dto.getAddress());
-            patient.setEmergencyContact(dto.getEmergencyContact());
-            patient.setGender(Gender.valueOf(dto.getGender()));
-            patient.setDate_of_birth(dto.getDate_of_birth());
-            patient.setUser(user);
-            patientRepository.save(patient);
-        } else if (userRole.equals(Role.DOCTOR)) {
-            Doctors doctor = new Doctors();
-            doctor.setFullName(dto.getFullName());
-            doctor.setPhoneNumber(dto.getPhoneNumber());
-            doctor.setEmail(dto.getEmail());
-            doctor.setSpecialty(dto.getSpecialty());
-            doctor.setUser(user);
-            doctorRepository.save(doctor);
+    public String registerDoctor(DoctorsDTO dto){
+        if ((doctorRepository.findByEmail(dto.getEmail())).isPresent()){
+            throw new RuntimeException("User Already exists!");
         }
 
-        return savedUser;
+        Doctors doctor = new Doctors();
+        doctor.setFullName(dto.getFullName());
+        doctor.setPhoneNumber(dto.getPhoneNumber());
+        doctor.setEmail(dto.getEmail());
+        doctor.setSpecialty(dto.getSpecialty());
+        doctorRepository.save(doctor);
+
+        return "Doctor Registered Successfully!";
+
     }
 
     public Users updateUser(Long id, Users userDetails) {
         Optional<Users> optionalUser = usersRepository.findById(id);
         if (optionalUser.isPresent()) {
             Users user = optionalUser.get();
-            user.setUserName(userDetails.getUserName());
             user.setEmail(userDetails.getEmail());
             user.setPassword(userDetails.getPassword());
 
@@ -101,4 +96,4 @@ public class UsersService {
     public void deleteUser(Long id) {
         usersRepository.deleteById(id);
     }
-} 
+}

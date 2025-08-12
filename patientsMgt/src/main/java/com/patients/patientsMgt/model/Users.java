@@ -1,19 +1,20 @@
 package com.patients.patientsMgt.model;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
-
-    @Column(name = "user_name")
-    private String userName;
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
@@ -59,10 +60,9 @@ public class Users {
     public Users() {}
 
 
-    public Users(Long userId, String userName, String email, String password, Role role, boolean isActive,
+    public Users(Long userId, String email, String password, Role role, boolean isActive,
             LocalDate lastLogin, LocalDate createdAt, LocalDate updatedAt, Patients patient, Doctors doctor) {
         this.userId = userId;
-        this.userName = userName;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -73,7 +73,6 @@ public class Users {
         this.patient = patient;
         this.doctor = doctor;
     }
-    
 
     public Long getUserId() {
         return userId;
@@ -81,14 +80,6 @@ public class Users {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getEmail() {
@@ -99,8 +90,38 @@ public class Users {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 
     public void setPassword(String password) {

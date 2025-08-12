@@ -3,6 +3,8 @@ package com.patients.patientsMgt.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.patients.patientsMgt.dto.DoctorsDTO;
+import com.patients.patientsMgt.dto.PatientsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.patients.patientsMgt.dto.UsersDTO;
 import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.services.UsersService;
 
@@ -36,11 +37,18 @@ public class UsersController {
         return usersService.getUserById(id);
     }
 
-    @PostMapping(value = "/registerUser")
-    public ResponseEntity<Users> registerUser(@Valid @RequestBody UsersDTO user) {
-        Users savedUser = usersService.saveUser(user);
+    @PostMapping(value = "/register/patient")
+    public ResponseEntity<String> registerPatient(@Valid @RequestBody PatientsDTO patient) {
+        String savedUser = usersService.registerPatient(patient);
         return ResponseEntity.ok(savedUser);
     }
+
+    @PostMapping(value = "/register/doctor")
+    public ResponseEntity<String> registerDoctor(@Valid @RequestBody DoctorsDTO doctor) {
+        String savedUser = usersService.registerDoctor(doctor);
+        return ResponseEntity.ok(savedUser);
+    }
+
 
     @PutMapping(value = "/updateUser/{id}")
     public ResponseEntity<Users> updateUser(@PathVariable Long id, @Valid @RequestBody Users userDetails) {

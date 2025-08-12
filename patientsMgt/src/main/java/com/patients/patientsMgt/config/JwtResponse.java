@@ -1,4 +1,4 @@
-package com.patients.patientsMgt.jwt;
+package com.patients.patientsMgt.config;
 
 public class JwtResponse {
     private String token;

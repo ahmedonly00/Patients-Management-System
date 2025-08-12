@@ -1,4 +1,4 @@
-package com.patients.patientsMgt.dto;
+package com.patients.patientsMgt.auth;
 
 public class LoginRequest {
     private String email;
@@ -26,5 +26,5 @@ public class LoginRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
 }

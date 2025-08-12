@@ -1,4 +1,4 @@
-package com.patients.patientsMgt.jwt;
+package com.patients.patientsMgt.config;
 
 import io.micrometer.common.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
