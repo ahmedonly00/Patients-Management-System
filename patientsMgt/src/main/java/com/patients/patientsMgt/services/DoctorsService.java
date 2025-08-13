@@ -20,20 +20,23 @@ public class DoctorsService {
     }
 
     public Optional<Doctors> getDoctorById(Long id) {
+
         return doctorsRepository.findById(id);
     }
 
     public Doctors findByUser(Users user) {
         return doctorsRepository.findByUser(user)
-                .orElseThrow(() -> new RuntimeException("Doctor not found for user: " + user.getUserName()));
+                .orElseThrow(() -> new RuntimeException("Doctor not found for user: " + user.getEmail()));
     }
 
     public Doctors saveDoctor(Doctors doctor) {
+
         return doctorsRepository.save(doctor);
     }
 
 
     public void deleteDoctor(Long id) {
+
         doctorsRepository.deleteById(id);
     }
 
@@ -43,12 +46,13 @@ public class DoctorsService {
             .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
         return new DoctorsDTO(
-            doctors.getDoctorId(), 
+            doctors.getDoctorId(),
             doctors.getFullName(),
             doctors.getSpecialty(),
             doctors.getDepartment(),
             doctors.getEmail(),
             doctors.getPhoneNumber());
+
 
     }
 } 

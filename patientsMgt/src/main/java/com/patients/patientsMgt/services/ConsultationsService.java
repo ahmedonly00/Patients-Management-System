@@ -102,7 +102,8 @@ public class ConsultationsService {
                 .stream()
                 .map(Consultations::getPatient)
                 .distinct()
-                .map(p -> new PatientsDTO(p.getPatientId(), 
+                .map(p -> new PatientsDTO(
+                        p.getPatientId(),
                         p.getFullName(), 
                         p.getDate_of_birth(), 
                         p.getGender(),

@@ -53,7 +53,8 @@ public class Doctors {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    public Doctors() {}
+    public Doctors() {
+    }
 
     public Doctors(Long doctorId, String fullName, String specialty, String email, String phoneNumber) {
         this.doctorId = doctorId;
@@ -150,4 +151,5 @@ public class Doctors {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
 }

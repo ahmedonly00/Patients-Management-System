@@ -1,6 +1,7 @@
 package com.patients.patientsMgt.dto;
 
 import com.patients.patientsMgt.model.Department;
+import com.patients.patientsMgt.model.Users;
 
 public class DoctorsDTO {
 
@@ -20,7 +21,7 @@ public class DoctorsDTO {
     public DoctorsDTO() {
     }
 
-    public DoctorsDTO(Long doctorId, String fullName, String specialty,Department department ,String email, String phoneNumber) {
+    public DoctorsDTO(Long doctorId, String fullName, String specialty, Department department , String email, String phoneNumber) {
         this.doctorId = doctorId;
         this.fullName = fullName;
         this.specialty = specialty;
@@ -77,4 +78,11 @@ public class DoctorsDTO {
         this.department = department;
     }
 
+//    public Users.Role getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(Users.Role role) {
+//        this.role = role;
+//    }
 }

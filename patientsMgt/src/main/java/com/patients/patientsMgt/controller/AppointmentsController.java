@@ -70,7 +70,7 @@ public class AppointmentsController {
     @GetMapping(value= "/doctor")
     public ResponseEntity<?> getDoctorAppointments(Principal principal) {
         String username = principal.getName();
-        Users user = usersService.findByUsername(username);
+        Users user = usersService.findByUser(username);
 
         Doctors doctor = doctorsService.findByUser(user);
         if (doctor == null) {

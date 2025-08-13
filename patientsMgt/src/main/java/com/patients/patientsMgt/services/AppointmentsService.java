@@ -38,10 +38,12 @@ public class AppointmentsService {
 
 
     public List<Appointments> getAllAppointments() {
+
         return appointmentsRepository.findAll();
     }
 
     public Optional<Appointments> getAppointmentById(Long id) {
+
         return appointmentsRepository.findById(id);
     }
 
@@ -50,12 +52,12 @@ public class AppointmentsService {
         
     }
 
-    public void bookAppointmentAsPatient(String username, AppointmentDTO appointmentDTO) {
-        Users user = usersService.findByUsername(username);
+    public void bookAppointmentAsPatient(String email, AppointmentDTO appointmentDTO) {
+        Users user = usersService.findByUser(email);
         Patients patient = patientService.findByUser(user);
 
         if (patient == null) {
-            throw new RuntimeException("Patient record not found for user: " + username);
+            throw new RuntimeException("Patient record not found for user: " + email);
         }
 
         Appointments appointment = new Appointments();

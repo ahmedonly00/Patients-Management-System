@@ -3,6 +3,7 @@ package com.patients.patientsMgt.dto;
 import java.time.LocalDate;
 
 import com.patients.patientsMgt.model.Patients.Gender;
+import com.patients.patientsMgt.model.Users;
 
 
 public class PatientsDTO {
@@ -23,6 +24,7 @@ public class PatientsDTO {
 
     private String emergencyContact;
 
+
     public PatientsDTO(Long patientId, String fullName, LocalDate date_of_birth, Gender gender, String phoneNumber,
             String email, String address, String emergencyContact) {
         this.patientId = patientId;
@@ -33,6 +35,7 @@ public class PatientsDTO {
         this.email = email;
         this.address = address;
         this.emergencyContact = emergencyContact;
+       // this.role = role;
     }
 
     public PatientsDTO() {
@@ -100,6 +103,13 @@ public class PatientsDTO {
 
     public void setEmergencyContact(String emergencyContact) {
         this.emergencyContact = emergencyContact;
-    } 
-
+    }
+//
+//    public Users.Role getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(Users.Role role) {
+//        this.role = role;
+//    }
 }

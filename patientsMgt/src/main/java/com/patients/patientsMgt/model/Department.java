@@ -73,6 +73,7 @@ public class Department {
       public enum DepartmentName {
         CARDIOLOGY,
         NEUROLOGY,
+          SURGERY,
         PEDIATRICS
     }
 

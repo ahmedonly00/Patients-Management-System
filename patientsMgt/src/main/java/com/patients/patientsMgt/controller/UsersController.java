@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.patients.patientsMgt.dto.DoctorsDTO;
 import com.patients.patientsMgt.dto.PatientsDTO;
+import com.patients.patientsMgt.dto.UsersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,18 +38,11 @@ public class UsersController {
         return usersService.getUserById(id);
     }
 
-    @PostMapping(value = "/register/patient")
-    public ResponseEntity<String> registerPatient(@Valid @RequestBody PatientsDTO patient) {
-        String savedUser = usersService.registerPatient(patient);
+    @PostMapping(value = "/registerUser")
+    public ResponseEntity<String> registerUser(@Valid @RequestBody UsersDTO dto) {
+        String savedUser = usersService.registerUser(dto);
         return ResponseEntity.ok(savedUser);
     }
-
-    @PostMapping(value = "/register/doctor")
-    public ResponseEntity<String> registerDoctor(@Valid @RequestBody DoctorsDTO doctor) {
-        String savedUser = usersService.registerDoctor(doctor);
-        return ResponseEntity.ok(savedUser);
-    }
-
 
     @PutMapping(value = "/updateUser/{id}")
     public ResponseEntity<Users> updateUser(@PathVariable Long id, @Valid @RequestBody Users userDetails) {

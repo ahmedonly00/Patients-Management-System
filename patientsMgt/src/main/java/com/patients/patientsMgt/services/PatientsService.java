@@ -17,27 +17,32 @@ public class PatientsService {
     private PatientsRepository patientRepository;
 
     public List<Patients> getAllPatients() {
+
         return patientRepository.findAll();
     }
 
     public Optional<Patients> getPatientById(Long id) {
+
         return patientRepository.findById(id);
     }
 
     public Patients findByUser(Users user) {
         return patientRepository.findByUser(user)
-                .orElseThrow(() -> new RuntimeException("Patient not found for user: " + user.getUserName()));
+                .orElseThrow(() -> new RuntimeException("Patient not found for user: " + user.getEmail()));
     }
 
     public Patients savePatient(Patients patient) {
+
         return patientRepository.save(patient);
     }
 
     public void updatePatient(Patients patient) {
+
         patientRepository.save(patient);
     }
 
     public void deletePatient(Long id) {
+
         patientRepository.deleteById(id);
     }
 
@@ -53,7 +58,8 @@ public class PatientsService {
             patients.getPhoneNumber(),
             patients.getEmail(),
             patients.getAddress(),
-            patients.getEmergencyContact());    
+            patients.getEmergencyContact()
+        );
 
     }
 } 
