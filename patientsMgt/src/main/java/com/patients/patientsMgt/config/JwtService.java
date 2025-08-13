@@ -3,11 +3,13 @@ package com.patients.patientsMgt.config;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.crypto.spec.SecretKeySpec;
 
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -26,19 +28,20 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    public String generateToken(UserDetails userDetails) {
-        Key key = new SecretKeySpec(jwtSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS512.getJcaName());
-        Map<String, Object> claims = new HashMap<>();
+    public String generateToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails) {
         return Jwts.builder()
-                .setClaims(claims)
+                .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String extractUsername(String token) {
+
         return getClaims(token).getSubject();
     }
 
@@ -53,6 +56,7 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
+
         return getClaims(token).getExpiration().before(new Date());
     }
 
@@ -64,5 +68,27 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
-    
+
+    private Date extractExpiration(String token){
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims (String token){
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 }
