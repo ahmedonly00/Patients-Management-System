@@ -57,14 +57,14 @@ public class DoctorsController {
     }
 
 
-    @PostMapping("/appointments/{appointmentId}/prescriptions")
-    public ResponseEntity<String> createPrescription(
-            @PathVariable Long appointmentId,
-            @RequestBody PrescriptionDTO dto,
-            @AuthenticationPrincipal UserDetails doctorUser) {
-
-        prescriptionService.createPrescription(appointmentId, dto, doctorUser.getUsername());
-
-        return ResponseEntity.ok("Prescription created successfully");
-    }
+//    @PostMapping("/createPrescription/{appointmentId}")
+//    public ResponseEntity<String> createPrescription(
+//            @PathVariable Long appointmentId,
+//            @RequestBody PrescriptionDTO dto,
+//            @AuthenticationPrincipal UserDetails doctorUser) {
+//
+//        prescriptionService.createPrescription(appointmentId, dto, doctorUser.getUsername());
+//
+//        return ResponseEntity.ok("Prescription created successfully");
+//    }
 } 

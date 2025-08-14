@@ -55,6 +55,9 @@ public class LabTestService {
     }
 
     public List<LabTestDTO> getPendingLabResults(String doctorEmail) {
+        Doctors doctors = doctorsRepository.findByEmail(doctorEmail)
+                .orElseThrow(() -> new RuntimeException("Doctor Not Found"));
+
     return labTestRepository.findPendingTestsByDoctorEmail(doctorEmail)
             .stream()
             .map(p -> new LabTestDTO(
@@ -70,11 +73,11 @@ public class LabTestService {
             .collect(Collectors.toList());       
     }
 
-    public LabTest createLabTest(Long consultationId, LabTestDTO dto, String doctorUsername) {
+    public LabTest createLabTest(Long consultationId, LabTestDTO dto, String doctorEmail) {
         Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
                 .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
 
-        Doctors doctors = doctorsRepository.findByFullName(doctorUsername)
+        Doctors doctors = doctorsRepository.findByEmail(doctorEmail)
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
         LabTest labTest = new LabTest();

@@ -3,13 +3,16 @@ package com.patients.patientsMgt.services;
 import com.patients.patientsMgt.dto.PatientsDTO;
 import com.patients.patientsMgt.model.Appointments;
 import com.patients.patientsMgt.model.Consultations;
+import com.patients.patientsMgt.model.Patients;
 import com.patients.patientsMgt.repository.AppointmentsRepository;
 import com.patients.patientsMgt.repository.ConsultationsRepository;
 
+import com.patients.patientsMgt.repository.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +27,9 @@ public class ConsultationsService {
 
     @Autowired
     private DoctorsRepository doctorsRepository;
+
+    @Autowired
+    private PatientsRepository patientsRepository;
 
     @Autowired
     private AppointmentsRepository appointmentsRepository;
@@ -55,7 +61,10 @@ public class ConsultationsService {
 
     
     public List<ConsultationsDTO> getConsultationHistory(String email) {
-        return consultationsRepository.findByPatientUserEmail(email)
+        Patients patients = patientsRepository.findByUserEmail(email)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+        return consultationsRepository.findByPatient(patients)
                 .stream()
                 .map(p -> new ConsultationsDTO(
                     p.getConsultationId(),
@@ -101,6 +110,7 @@ public class ConsultationsService {
         return consultationsRepository.findByDoctor(doctors)
                 .stream()
                 .map(Consultations::getPatient)
+                .filter(Objects::nonNull)
                 .distinct()
                 .map(p -> new PatientsDTO(
                         p.getPatientId(),
@@ -119,7 +129,7 @@ public class ConsultationsService {
         Appointments appointments = appointmentsRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment Not Found"));
 
-        Doctors doctors = doctorsRepository.findByFullName(doctorUsername)
+        Doctors doctors = doctorsRepository.findByEmail(doctorUsername)
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
         Consultations consultation = new Consultations();

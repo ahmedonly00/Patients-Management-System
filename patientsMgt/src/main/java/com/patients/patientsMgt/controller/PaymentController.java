@@ -37,7 +37,7 @@ public class PaymentController {
         return paymentService.getPaymentById(id);
     }
 
-    @PostMapping(value = "/createPayment")
+    @PostMapping(value = "/{consultationId}/createPayment")
     public ResponseEntity<Payment> createBilling(
             @PathVariable Long consultationId,
             @RequestBody PaymentDTO dto,

@@ -123,7 +123,14 @@ public class AppointmentsService {
     LocalDate today = LocalDate.now();
     return appointmentsRepository.findByDoctorAndAppointmentDate(doctor, today)
         .stream()
-        .map(p -> new AppointmentDTO(p.getAppointmentDate(), p.getAppointmentTime(), p.getAppointmentType(), p.getStatus(), p.getNotes(), p.getCreated_at(), p.getUpdated_at()))
+        .map(p -> new AppointmentDTO(
+                p.getAppointmentDate(),
+                p.getAppointmentTime(),
+                p.getAppointmentType(),
+                p.getStatus(),
+                p.getNotes(),
+                p.getCreated_at(),
+                p.getUpdated_at()))
         .collect(Collectors.toList());
     }
 

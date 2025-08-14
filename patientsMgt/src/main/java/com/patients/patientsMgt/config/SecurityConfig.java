@@ -41,6 +41,8 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/api/doctors/**").hasRole("DOCTOR")
+                        .requestMatchers("/api/patient/dashboard/**").hasRole("PATIENT")
+                        .requestMatchers("/api/doctor/dashboard/**").hasRole("DOCTOR")
                         .requestMatchers("/api/patients/**").hasAnyRole("PATIENT", "DOCTOR")
                         .requestMatchers("/api/departments/**").permitAll()
                         .requestMatchers("/api/appointments/**").permitAll()
@@ -48,8 +50,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/insurances/**").permitAll()
                         .requestMatchers("/api/medications/**").permitAll()
                         .requestMatchers("/api/payment/**").permitAll()
+                        .requestMatchers("/api/billing/**").hasRole("PATIENT")
                         .requestMatchers("/api/prescriptions/**").permitAll()
-                        .requestMatchers("/api/prescription-details").permitAll()
+                        .requestMatchers("/api/prescription-details/**").permitAll()
 
 
                         .anyRequest().authenticated()

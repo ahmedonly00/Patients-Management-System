@@ -26,7 +26,7 @@ public class BillingController {
         return ResponseEntity.ok(billingService.getBillsByPatient(email));
     }
 
-    @PostMapping(value = "/createBilling")
+    @PostMapping(value = "/{consultationId}/createBilling")
     public ResponseEntity<Billing> createBilling(
             @PathVariable Long consultationId,
             @RequestBody BillingDTO dto,

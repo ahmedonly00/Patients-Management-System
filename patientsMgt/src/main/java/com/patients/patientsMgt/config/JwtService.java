@@ -22,13 +22,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtService {
 
-    
     @Value("${jwt.secret}")
     private String jwtSecret;
 
     @Value("${jwt.expiration}")
     private long jwtExpiration;
-
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -48,14 +46,8 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-
-        return getClaims(token).getSubject();
+        return extractClaim(token, Claims::getSubject);
     }
-
-    public String extractRole(String token) {
-    Claims claims = getClaims(token);
-    return claims.get("role", String.class);
-   }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
@@ -63,17 +55,7 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
-
-        return getClaims(token).getExpiration().before(new Date());
-    }
-
-    private Claims getClaims(String token) {
-        Key key = new SecretKeySpec(jwtSecret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS512.getJcaName());
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        return extractExpiration(token).before(new Date());
     }
 
     private Date extractExpiration(String token){
@@ -85,7 +67,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims (String token){
+    private Claims extractAllClaims(String token){
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())

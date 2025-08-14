@@ -42,6 +42,18 @@ public class Billing {
     @Column(name = "updated_at", nullable = false)
     private LocalDate updatedAt;
 
+    @PrePersist
+    protected void onCreate() {
+        LocalDate now = LocalDate.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDate.now();
+    }
+
     @ManyToOne
     @JoinColumn(name = "consultation_id")
     private Consultations consultation;

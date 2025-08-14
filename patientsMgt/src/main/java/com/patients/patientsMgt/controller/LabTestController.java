@@ -1,8 +1,7 @@
 package com.patients.patientsMgt.controller;
 
-import com.patients.patientsMgt.dto.ConsultationsDTO;
 import com.patients.patientsMgt.dto.LabTestDTO;
-import com.patients.patientsMgt.model.Consultations;
+import com.patients.patientsMgt.model.LabTest;
 import com.patients.patientsMgt.services.ConsultationsService;
 import com.patients.patientsMgt.services.LabTestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,6 @@ public class LabTestController {
     @Autowired
     private LabTestService labTestService;
 
-    @Autowired
-    private ConsultationsService consultationsService;
-
     @GetMapping(value = "/getLabResults")
     public ResponseEntity<List<LabTestDTO>> getLabResults (Principal principal){
         String email = principal.getName();
@@ -29,14 +25,14 @@ public class LabTestController {
     }
 
     @PostMapping(value = "/createLabTest")
-    public ResponseEntity<Consultations> createConsultation(
-            @PathVariable Long appointmentId,
-            @RequestBody ConsultationsDTO dto,
+    public ResponseEntity<LabTest> createConsultation(
+            @PathVariable Long consultationId,
+            @RequestBody LabTestDTO dto,
             Principal principal ) {
 
         String doctorUsername = principal.getName();
-        Consultations createConsultation = consultationsService.createConsultation(appointmentId, dto, doctorUsername);
-        return ResponseEntity.ok(createConsultation);
+        LabTest createLabTest = labTestService.createLabTest(consultationId, dto, doctorUsername);
+        return ResponseEntity.ok(createLabTest);
     }
 
 }

@@ -31,7 +31,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        Users user = userRepository.findByEmail(request.getEmail())
+        var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         var jwtToken = jwtService.generateToken(user);
         return  new LoginResponse(jwtToken);

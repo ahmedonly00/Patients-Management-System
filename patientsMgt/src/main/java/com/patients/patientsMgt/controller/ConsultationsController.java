@@ -37,7 +37,7 @@ public class ConsultationsController {
         return consultationsService.getConsultationById(id);
     }
 
-    @PostMapping(value = "/createConsultation")
+    @PostMapping(value = "/{appointmentId}/createConsultation")
     public ResponseEntity<Consultations> createConsultation(
             @PathVariable Long appointmentId,
             @RequestBody ConsultationsDTO dto,
@@ -50,6 +50,7 @@ public class ConsultationsController {
 
     @DeleteMapping(value = "/deleteConsultation/{id}")
     public void deleteConsultation(@PathVariable Long id) {
+
         consultationsService.deleteConsultation(id);
     }
 } 
