@@ -47,6 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/departments/**").permitAll()
                         .requestMatchers("/api/appointments/**").permitAll()
                         .requestMatchers("/api/consultations/**").permitAll()
+                        .requestMatchers("/api/labTest/{consultationId}/createLabTest").hasRole("DOCTOR")
                         .requestMatchers("/api/insurances/**").permitAll()
                         .requestMatchers("/api/medications/**").permitAll()
                         .requestMatchers("/api/payment/**").permitAll()

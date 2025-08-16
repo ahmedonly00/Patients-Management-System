@@ -50,6 +50,7 @@ public class PrescriptionService {
         Prescription prescription = new Prescription();
         prescription.setConsultation(consultations);
         prescription.setDoctor(doctors);
+        prescription.setPatient(consultations.getPatient());
         prescription.setMedication(dto.getMedication());
         prescription.setDosage(dto.getDosage());
         prescription.setInstructions(dto.getInstructions());

@@ -40,9 +40,9 @@ public class Insurance {
     @Column(name = "expiry_date")
     private LocalDate expiry_date;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patients patient;
+//    @ManyToOne
+//    @JoinColumn(name = "patient_id")
+//    private Patients patient;
 
     @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
     private List<PatientInsurance> patientInsurances;
@@ -51,7 +51,7 @@ public class Insurance {
 
 
     public Insurance(Long insuranceId, String providerName, String policyNumber, String coverageDetails,
-            float coverage_amount, boolean is_active, LocalDate expiry_date, Patients patient) {
+            float coverage_amount, boolean is_active, LocalDate expiry_date) {
         this.insuranceId = insuranceId;
         this.providerName = providerName;
         this.policyNumber = policyNumber;
@@ -59,7 +59,7 @@ public class Insurance {
         this.coverage_amount = coverage_amount;
         this.is_active = is_active;
         this.expiry_date = expiry_date;
-        this.patient = patient;
+        //this.patient = patient;
     }
 
 
@@ -71,13 +71,13 @@ public class Insurance {
         this.insuranceId = insuranceId;
     }
 
-    public Patients getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patients patient) {
-        this.patient = patient;
-    }
+//    public Patients getPatient() {
+//        return patient;
+//    }
+//
+//    public void setPatient(Patients patient) {
+//        this.patient = patient;
+//    }
 
     public String getProviderName() {
         return providerName;

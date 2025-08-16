@@ -135,6 +135,7 @@ public class ConsultationsService {
         Consultations consultation = new Consultations();
         consultation.setAppointment(appointments);
         consultation.setDoctor(doctors);
+        consultation.setPatient(appointments.getPatient());
         consultation.setConsultationDate(dto.getConsultationDate());
         consultation.setConsultationType(dto.getConsultationType());
         consultation.setHistory_of_illness(dto.getHistory_of_illness());

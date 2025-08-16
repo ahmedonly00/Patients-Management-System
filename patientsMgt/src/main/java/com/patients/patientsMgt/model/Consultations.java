@@ -16,7 +16,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
-
 @Entity
 @Table(name = "consultations")
 public class Consultations {
@@ -63,10 +62,6 @@ public class Consultations {
     @JoinColumn(name = "appointment_id")
     private Appointments appointment;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
-
     @OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
     private List<Prescription> prescriptions;
 
@@ -82,11 +77,10 @@ public class Consultations {
 
     public Consultations() {}
 
-    public Consultations(Long consultationId, Patients patient, Doctors doctor, Department department, String consultationDate, String notes, String diagnosis, Status status) {
+    public Consultations(Long consultationId, Patients patient, Doctors doctor, String consultationDate, String notes, String diagnosis, Status status) {
         this.consultationId = consultationId;
         this.patient = patient;
         this.doctor = doctor;
-        this.department = department;
         this.consultationDate = consultationDate;
         this.notes = notes;
         this.diagnosis = diagnosis;
@@ -115,14 +109,6 @@ public class Consultations {
 
     public void setDoctor(Doctors doctor) {
         this.doctor = doctor;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
     }
 
     public String getConsultationDate() {

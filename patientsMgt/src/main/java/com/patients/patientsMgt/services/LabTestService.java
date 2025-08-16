@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.patients.patientsMgt.dto.PrescriptionDTO;
-import com.patients.patientsMgt.model.Consultations;
-import com.patients.patientsMgt.model.Doctors;
-import com.patients.patientsMgt.model.LabTest;
-import com.patients.patientsMgt.model.Prescription;
+import com.patients.patientsMgt.model.*;
 import com.patients.patientsMgt.repository.ConsultationsRepository;
 import com.patients.patientsMgt.repository.DoctorsRepository;
+import com.patients.patientsMgt.repository.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,9 @@ public class LabTestService {
     @Autowired
     private DoctorsRepository doctorsRepository;
 
+    @Autowired
+    private PatientsRepository patientsRepository;
+
 //    public List<LabTestDTO> getLabResults (String email){
 //        List<LabTest> labTests = labTestRepository.findByPatientUserEmail(email);
 //        List<LabTestDTO> dtoList = new ArrayList<>();
@@ -39,6 +40,9 @@ public class LabTestService {
 //    }
 
     public List<LabTestDTO> getLabResults (String email){
+        Patients patients = patientsRepository.findByUserEmail(email)
+                .orElseThrow(() -> new RuntimeException("Patient Not Found"));
+
         return labTestRepository.findByPatientUserEmail(email)
                 .stream()
                 .map(p -> new LabTestDTO(
@@ -83,10 +87,12 @@ public class LabTestService {
         LabTest labTest = new LabTest();
         labTest.setConsultation(consultations);
         labTest.setDoctor(doctors);
+        labTest.setPatient(consultations.getPatient());
         labTest.setTestType(dto.getTestType());
         labTest.setTestName(dto.getTestName());
         labTest.setTestDate(dto.getTestDate());
         labTest.setSampleDate(dto.getSampleDate());
+        labTest.setResult(dto.getResult());
         labTest.setTestStatus(dto.getTestStatus());
         labTest.setComments(dto.getComments());
 

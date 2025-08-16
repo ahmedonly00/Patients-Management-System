@@ -16,7 +16,6 @@ public interface ConsultationsRepository extends JpaRepository<Consultations, Lo
     Optional<Consultations> findByConsultationId(Long consultationId);
     List<Consultations> findByPatient(Patients patient);
     List<Consultations> findByDoctor(Doctors doctor);
-    List<Consultations> findByDepartment(Department department);
     List<Consultations> findByConsultationDate(String consultationDate);
     List<Consultations> findByDiagnosis(String diagnosis);
     List<Consultations> findByStatus(Consultations.Status status);

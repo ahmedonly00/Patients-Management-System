@@ -60,8 +60,8 @@ public class Patients {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Consultations> consultations;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<Insurance> insurances;
+//    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+//    private List<Insurance> insurances;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Payment> payments;
@@ -77,6 +77,9 @@ public class Patients {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<PatientInsurance> patientInsurances;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Medication> medications;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -99,8 +102,8 @@ public class Patients {
 
     public Patients(Long patientId, String fullName, LocalDate date_of_birth, Gender gender, String phoneNumber,
             String email, String address, String emergencyContact, LocalDate created_at, LocalDate updated_at,
-            List<Appointments> appointments, List<Consultations> consultations, List<Insurance> insurances,
-            List<Payment> payments, List<Prescription> prescriptions, Users user) {
+            List<Appointments> appointments, List<Consultations> consultations,
+            List<Payment> payments, List<Prescription> prescriptions, List<Medication> medications ,Users user) {
         this.patientId = patientId;
         this.fullName = fullName;
         this.date_of_birth = date_of_birth;
@@ -113,9 +116,9 @@ public class Patients {
         this.updated_at = updated_at;
         this.appointments = appointments;
         this.consultations = consultations;
-        this.insurances = insurances;
         this.payments = payments;
         this.prescriptions = prescriptions;
+        this.medications = medications;
         this.user = user;
     }
 
@@ -192,13 +195,13 @@ public class Patients {
         this.consultations = consultations;
     }
 
-    public List<Insurance> getInsurances() {
-        return insurances;
-    }
-
-    public void setInsurances(List<Insurance> insurances) {
-        this.insurances = insurances;
-    }
+//    public List<Insurance> getInsurances() {
+//        return insurances;
+//    }
+//
+//    public void setInsurances(List<Insurance> insurances) {
+//        this.insurances = insurances;
+//    }
 
     public List<Payment> getPayments() {
         return payments;
