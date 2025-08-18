@@ -5,18 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="340c615b-cea6-4b29-ab29-3bd9b3bd3944" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/MedicalHistoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/customExceptions/BaseException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/customExceptions/BusinessLogicException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/customExceptions/DatabaseException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/customExceptions/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/customExceptions/UnauthorizedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/customExceptions/ValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/errorResponseDTOs/ErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/errorResponseDTOs/ValidationErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/exceptions/globalExceptionHandler/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/LabTestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/LabTestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Consultations.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Consultations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Insurance.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Insurance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Patients.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/ConsultationsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/ConsultationsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/ConsultationsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/ConsultationsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/InsuranceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/InsuranceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/LabTestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/LabTestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PrescriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/PrescriptionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>

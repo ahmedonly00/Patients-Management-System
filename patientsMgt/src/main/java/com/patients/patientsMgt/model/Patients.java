@@ -60,9 +60,6 @@ public class Patients {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Consultations> consultations;
 
-//    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-//    private List<Insurance> insurances;
-
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Payment> payments;
 
@@ -195,14 +192,6 @@ public class Patients {
         this.consultations = consultations;
     }
 
-//    public List<Insurance> getInsurances() {
-//        return insurances;
-//    }
-//
-//    public void setInsurances(List<Insurance> insurances) {
-//        this.insurances = insurances;
-//    }
-
     public List<Payment> getPayments() {
         return payments;
     }
@@ -273,6 +262,14 @@ public class Patients {
 
     public void setPatientInsurances(List<PatientInsurance> patientInsurances) {
         this.patientInsurances = patientInsurances;
+    }
+
+    public List<Medication> getMedications() {
+        return medications;
+    }
+
+    public void setMedications(List<Medication> medications) {
+        this.medications = medications;
     }
 
     public enum Gender {
