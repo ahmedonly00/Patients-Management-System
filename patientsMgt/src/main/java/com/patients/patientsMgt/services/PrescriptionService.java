@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
+import com.patients.patientsMgt.exceptions.customExceptions.UnauthorizedException;
 import com.patients.patientsMgt.model.Consultations;
 import com.patients.patientsMgt.model.Doctors;
 import com.patients.patientsMgt.model.Patients;
@@ -42,10 +44,10 @@ public class PrescriptionService {
 
     public Prescription createPrescription(Long consultationId, PrescriptionDTO dto, String doctorUsername) {
         Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
-                .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Consultation", "id", consultationId));
 
         Doctors doctors = doctorsRepository.findByEmail(doctorUsername)
-                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "email", doctorUsername));
 
         Prescription prescription = new Prescription();
         prescription.setConsultation(consultations);
@@ -62,13 +64,13 @@ public class PrescriptionService {
 
     public Prescription updatePrescription(Long prescriptionId, PrescriptionDTO dto, String doctorUsername) {
         Prescription prescription = prescriptionRepository.findById(prescriptionId)
-                .orElseThrow(() -> new RuntimeException("Prescription not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Prescription", "PrescriptionId", prescriptionId));
 
         Doctors doctors = doctorsRepository.findByEmail(doctorUsername)
-                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "Email", doctorUsername));
 
         if (!prescription.getDoctor().getDoctorId().equals(doctors.getDoctorId())) {
-            throw new RuntimeException("You are not authorized to update this prescription");
+            throw new UnauthorizedException("You are not authorized to update this prescription");
         }
 
         prescription.setMedication(dto.getMedication());
@@ -82,13 +84,14 @@ public class PrescriptionService {
 
 
     public void deletePrescription(Long id) {
+
         prescriptionRepository.deleteById(id);
     }
 
     
     public List<PrescriptionDTO> getPrescriptionsByPatient(String email) {
         Patients patients = patientsRepository.findByUserEmail(email)
-                .orElseThrow(() -> new RuntimeException("Patient Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient" , "Email",email ));
 
         return prescriptionRepository.findByPatient(patients)
             .stream()

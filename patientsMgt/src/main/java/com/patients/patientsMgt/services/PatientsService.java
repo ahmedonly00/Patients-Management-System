@@ -3,6 +3,7 @@ package com.patients.patientsMgt.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class PatientsService {
 
     public Patients findByUser(Users user) {
         return patientRepository.findByUser(user)
-                .orElseThrow(() -> new RuntimeException("Patient not found for user: " + user.getEmail()));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", user.getEmail()));
     }
 
     public Patients savePatient(Patients patient) {
@@ -48,7 +49,7 @@ public class PatientsService {
 
     public PatientsDTO getPatientInfo(String email) {
         Patients patients = patientRepository.findByUserEmail(email)
-            .orElseThrow(() -> new RuntimeException("Patient Not Found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", email));
 
         return new PatientsDTO(
             patients.getPatientId(),

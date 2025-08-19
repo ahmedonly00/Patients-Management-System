@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.patients.patientsMgt.dto.DoctorsDTO;
 import com.patients.patientsMgt.dto.PatientsDTO;
 import com.patients.patientsMgt.dto.UsersDTO;
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
 import com.patients.patientsMgt.model.Department;
 import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.repository.DepartmentRepository;
@@ -40,6 +41,7 @@ public class UsersService {
 
     public List<Users> getAllUsers() {
         return usersRepository.findAll();
+
     }
 
     public Optional<Users> getUserById(Long id) {
@@ -48,7 +50,7 @@ public class UsersService {
 
     public Users findByUser(String email) {
         return usersRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with username: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email" , email));
     }
 
     public String registerUser(UsersDTO dto) {
@@ -91,7 +93,7 @@ public class UsersService {
 
             // Fetch department from DB using ID
             Department department = departmentRepository.findById(dto.getDepartmentId())
-                    .orElseThrow(() -> new RuntimeException("Department not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Department", "departmentId", dto.getDepartmentId()));
 
             doctor.setDepartment(department);
 
@@ -113,7 +115,7 @@ public class UsersService {
 
             return usersRepository.save(user);
         } else {
-            throw new RuntimeException("User not found with id: " + id);
+            throw new ResourceNotFoundException("User", "id" , id);
         }
     }
 

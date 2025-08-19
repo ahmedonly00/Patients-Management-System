@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,7 @@ public class AppointmentsService {
         Patients patient = patientService.findByUser(user);
 
         if (patient == null) {
-            throw new RuntimeException("Patient record not found for user: " + email);
+            throw new ResourceNotFoundException("Patient record not found for user: " + email);
         }
 
         Appointments appointment = new Appointments();
@@ -77,7 +78,7 @@ public class AppointmentsService {
 
     public void assignDoctorToAppointment(Long appointmentId, Long doctorId) {
         Appointments appointment = appointmentsRepository.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
 
         Doctors doctor = doctorsService.getDoctorById(doctorId)
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
@@ -118,7 +119,7 @@ public class AppointmentsService {
     
     public List<AppointmentDTO> getTodaysAppointments(String email) {
     Doctors doctor = doctorsRepository.findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("Doctor not found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Doctor", "Email", email));
 
     LocalDate today = LocalDate.now();
     return appointmentsRepository.findByDoctorAndAppointmentDate(doctor, today)

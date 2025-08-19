@@ -2,6 +2,7 @@ package com.patients.patientsMgt.services;
 
 import com.patients.patientsMgt.dto.BillingDTO;
 import com.patients.patientsMgt.dto.PaymentDTO;
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
 import com.patients.patientsMgt.model.Billing;
 import com.patients.patientsMgt.model.Consultations;
 import com.patients.patientsMgt.model.Patients;
@@ -41,10 +42,10 @@ public class PaymentService {
 
     public Payment createPayment(Long consultationId, PaymentDTO dto, String patientEmail) {
         Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
-                .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Consultation", "Consultation ID", consultationId));
 
         Patients patients = patientsRepository.findByUserEmail(patientEmail)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", patientEmail));
 
         Payment payment = new Payment();
         payment.setConsultation(consultations);

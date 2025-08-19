@@ -1,6 +1,8 @@
 package com.patients.patientsMgt.services;
 
 import com.patients.patientsMgt.dto.PatientsDTO;
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
+import com.patients.patientsMgt.exceptions.customExceptions.UnauthorizedException;
 import com.patients.patientsMgt.model.Appointments;
 import com.patients.patientsMgt.model.Consultations;
 import com.patients.patientsMgt.model.Patients;
@@ -62,7 +64,7 @@ public class ConsultationsService {
     
     public List<ConsultationsDTO> getConsultationHistory(String email) {
         Patients patients = patientsRepository.findByUserEmail(email)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", email));
 
         return consultationsRepository.findByPatient(patients)
                 .stream()
@@ -83,7 +85,7 @@ public class ConsultationsService {
 
     public List<ConsultationsDTO> getConsultationHistoryByDoctor(String email) {
         Doctors doctors = doctorsRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "Email", email));
 
         return consultationsRepository.findByDoctor(doctors)
                 .stream()
@@ -105,7 +107,7 @@ public class ConsultationsService {
 
     public List<PatientsDTO> getPatientsByDoctor(String email) {
         Doctors doctors = doctorsRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("Doctor not Found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Doctor", "Email", email));
 
         return consultationsRepository.findByDoctor(doctors)
                 .stream()
@@ -127,10 +129,10 @@ public class ConsultationsService {
 
     public Consultations createConsultation(Long appointmentId, ConsultationsDTO dto, String doctorUsername) {
         Appointments appointments = appointmentsRepository.findByAppointmentId(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Appointment Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment", "AppointmentId", appointmentId));
 
         Doctors doctors = doctorsRepository.findByEmail(doctorUsername)
-                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "Email", doctorUsername));
 
         Consultations consultation = new Consultations();
         consultation.setAppointment(appointments);
@@ -150,13 +152,13 @@ public class ConsultationsService {
 
     public Consultations updateConsultation(Long consultationId, ConsultationsDTO dto, String doctorUsername) {
         Consultations consultation = consultationsRepository.findByConsultationId(consultationId)
-                .orElseThrow(() -> new RuntimeException("Consultation not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Consultation", "ConsultationId", consultationId));
 
         Doctors doctors = doctorsRepository.findByFullName(doctorUsername)
-                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "FullName", doctorUsername));
 
         if (!consultation.getDoctor().getDoctorId().equals(doctors.getDoctorId())) {
-            throw new RuntimeException("You are not authorized to update this prescription");
+            throw new UnauthorizedException("You are not authorized to update this prescription");
         }
 
         consultation.setConsultationType(dto.getConsultationType());

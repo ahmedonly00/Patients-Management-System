@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import com.patients.patientsMgt.dto.PatientInsuranceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,8 +53,9 @@ public class InsuranceController {
     }
 
     @GetMapping(value = "/getInsuranceByPatient")
-    public ResponseEntity<List<InsuranceDTO>> getInsuranceByPatient(Principal principal){
-        String email = principal.getName();
-        return ResponseEntity.ok(insuranceService.getInsuranceByPatient(email));
+    public ResponseEntity<List<PatientInsuranceDTO>> getInsuranceByPatient(Principal principal){
+
+        String patientEmail = principal.getName();
+        return ResponseEntity.ok(insuranceService.getInsuranceByPatient(patientEmail));
     }
 } 

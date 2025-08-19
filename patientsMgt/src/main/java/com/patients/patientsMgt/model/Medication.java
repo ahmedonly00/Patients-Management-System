@@ -21,6 +21,10 @@ public class Medication {
     @Column(name = "frequency", nullable = false)
     private String frequency;
 
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patients patient;
+
     @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL)
     private List<PrescriptionDetail> prescriptionDetails;
 

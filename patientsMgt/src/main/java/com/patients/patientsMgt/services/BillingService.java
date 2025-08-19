@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.patients.patientsMgt.dto.LabTestDTO;
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
 import com.patients.patientsMgt.model.*;
 import com.patients.patientsMgt.repository.ConsultationsRepository;
 import com.patients.patientsMgt.repository.PatientsRepository;
@@ -26,6 +27,9 @@ public class BillingService {
     private ConsultationsRepository consultationsRepository;
 
     public List<BillingDTO> getBillsByPatient(String email){
+        Patients patients = patientsRepository.findByUserEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", email));
+
         return billingRepository.findByPatientUserEmail(email)
                 .stream()
                 .map(p -> new BillingDTO(
@@ -46,10 +50,10 @@ public class BillingService {
 
     public Billing createBilling(Long consultationId, BillingDTO dto, String patientEmail) {
         Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
-                .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Consultation", "ConsultationId", consultationId));
 
         Patients patients = patientsRepository.findByUserEmail(patientEmail)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", patientEmail));
 
         Billing billing = new Billing();
         billing.setConsultation(consultations);

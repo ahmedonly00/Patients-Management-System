@@ -1,10 +1,13 @@
 package com.patients.patientsMgt.services;
 
 import com.patients.patientsMgt.dto.InsuranceDTO;
+import com.patients.patientsMgt.dto.PatientInsuranceDTO;
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
 import com.patients.patientsMgt.model.Insurance;
 import com.patients.patientsMgt.model.Patients;
 import com.patients.patientsMgt.repository.InsuranceRepository;
 
+import com.patients.patientsMgt.repository.PatientInsuranceRepository;
 import com.patients.patientsMgt.repository.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +19,13 @@ import java.util.stream.Collectors;
 @Service
 public class InsuranceService {
     @Autowired
-    private InsuranceRepository insuranceRepository;
+    private PatientInsuranceRepository patientInsuranceRepository;
 
     @Autowired
     private PatientsRepository patientsRepository;
+
+    @Autowired
+    private InsuranceRepository insuranceRepository;
 
     public List<Insurance> getAllInsurances() {
         return insuranceRepository.findAll();
@@ -37,20 +43,19 @@ public class InsuranceService {
         insuranceRepository.deleteById(id);
     }
 
-    public List<InsuranceDTO> getInsuranceByPatient(String email){
+    public List<PatientInsuranceDTO> getInsuranceByPatient(String email){
         Patients patients = patientsRepository.findByUserEmail(email)
-                .orElseThrow(() -> new RuntimeException("Patient Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", email));
 
-        return insuranceRepository.findByPatient(patients)
+//        Insurance insurance = insuranceRepository.findByInsuranceId(insuranceId)
+//                .orElseThrow(() -> new ResourceNotFoundException(("Insurance", "Id", insuranceId));
+
+        return patientInsuranceRepository.findByPatient(patients)
             .stream()
-            .map(p -> new InsuranceDTO(
-                p.getInsuranceId(), 
-                p.getProviderName(), 
-                p.getPolicyNumber(), 
-                p.getCoverageDetails(), 
-                p.getCoverage_amount(), 
-                p.isIs_active(),
-                p.getExpiry_date()))
+            .map(p -> new PatientInsuranceDTO(
+                p.getPatientInsuranceId(),
+                p.getStartDate(),
+                p.getEndDate()))
             .collect(Collectors.toList());
     }
 

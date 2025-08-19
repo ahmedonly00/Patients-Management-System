@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.patients.patientsMgt.dto.PrescriptionDTO;
+import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundException;
 import com.patients.patientsMgt.model.*;
 import com.patients.patientsMgt.repository.ConsultationsRepository;
 import com.patients.patientsMgt.repository.DoctorsRepository;
@@ -41,7 +42,7 @@ public class LabTestService {
 
     public List<LabTestDTO> getLabResults (String email){
         Patients patients = patientsRepository.findByUserEmail(email)
-                .orElseThrow(() -> new RuntimeException("Patient Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", email));
 
         return labTestRepository.findByPatientUserEmail(email)
                 .stream()
@@ -60,7 +61,7 @@ public class LabTestService {
 
     public List<LabTestDTO> getPendingLabResults(String doctorEmail) {
         Doctors doctors = doctorsRepository.findByEmail(doctorEmail)
-                .orElseThrow(() -> new RuntimeException("Doctor Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "Email", doctorEmail));
 
     return labTestRepository.findPendingTestsByDoctorEmail(doctorEmail)
             .stream()
@@ -79,10 +80,10 @@ public class LabTestService {
 
     public LabTest createLabTest(Long consultationId, LabTestDTO dto, String doctorEmail) {
         Consultations consultations = consultationsRepository.findByConsultationId(consultationId)
-                .orElseThrow(() -> new RuntimeException("Consultation Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Consultation", "Consultation Id", consultationId));
 
         Doctors doctors = doctorsRepository.findByEmail(doctorEmail)
-                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "Email", doctorEmail));
 
         LabTest labTest = new LabTest();
         labTest.setConsultation(consultations);

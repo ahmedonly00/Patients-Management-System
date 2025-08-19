@@ -40,10 +40,6 @@ public class Insurance {
     @Column(name = "expiry_date")
     private LocalDate expiry_date;
 
-//    @ManyToOne
-//    @JoinColumn(name = "patient_id")
-//    private Patients patient;
-
     @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
     private List<PatientInsurance> patientInsurances;
 
