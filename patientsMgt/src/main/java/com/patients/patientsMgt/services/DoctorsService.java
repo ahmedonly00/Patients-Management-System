@@ -6,6 +6,10 @@ import com.patients.patientsMgt.model.Doctors;
 import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.repository.DoctorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +20,13 @@ public class DoctorsService {
     @Autowired
     private DoctorsRepository doctorsRepository;
 
-    public List<Doctors> getAllDoctors() {
-        return doctorsRepository.findAll();
+    public Page<Doctors> getAllDoctors(int page, int size,String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return doctorsRepository.findAll(pageable);
     }
 
     public Optional<Doctors> getDoctorById(Long id) {

@@ -12,6 +12,10 @@ import com.patients.patientsMgt.model.Department;
 import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +43,13 @@ public class UsersService {
     private PasswordEncoder passwordEncoder;
 
 
-    public List<Users> getAllUsers() {
-        return usersRepository.findAll();
+    public Page<Users> getAllUsers(int page, int size,String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return usersRepository.findAll(pageable);
 
     }
 

@@ -10,6 +10,10 @@ import com.patients.patientsMgt.repository.InsuranceRepository;
 import com.patients.patientsMgt.repository.PatientInsuranceRepository;
 import com.patients.patientsMgt.repository.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +31,13 @@ public class InsuranceService {
     @Autowired
     private InsuranceRepository insuranceRepository;
 
-    public List<Insurance> getAllInsurances() {
-        return insuranceRepository.findAll();
+    public Page<Insurance> getAllInsurances(int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return insuranceRepository.findAll(pageable);
     }
 
     public Optional<Insurance> getInsuranceById(Long id) {
@@ -47,9 +56,6 @@ public class InsuranceService {
         Patients patients = patientsRepository.findByUserEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient", "Email", email));
 
-//        Insurance insurance = insuranceRepository.findByInsuranceId(insuranceId)
-//                .orElseThrow(() -> new ResourceNotFoundException(("Insurance", "Id", insuranceId));
-
         return patientInsuranceRepository.findByPatient(patients)
             .stream()
             .map(p -> new PatientInsuranceDTO(
@@ -58,7 +64,5 @@ public class InsuranceService {
                 p.getEndDate()))
             .collect(Collectors.toList());
     }
-
-
     
 } 

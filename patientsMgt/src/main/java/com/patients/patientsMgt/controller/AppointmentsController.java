@@ -1,18 +1,16 @@
 package com.patients.patientsMgt.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import com.patients.patientsMgt.model.Consultations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.patients.patientsMgt.dto.AssignDoctorDTO;
 import com.patients.patientsMgt.model.Appointments;
@@ -37,11 +35,24 @@ public class AppointmentsController {
 
     @Autowired
     private AppointmentsRepository appointmentsRepository;
-    
+
 
     @GetMapping(value = "/all")
-    public List<Appointments> getAllAppointments() {
-        return appointmentsService.getAllAppointments();
+    public ResponseEntity<Map<String, Object>> getAllAppointments(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        Page<Appointments> appointmentsPage = appointmentsService.getAllAppointments(page, size, sortBy, direction);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("Users", appointmentsPage.getContent());
+        response.put("CurrentPage", appointmentsPage.getNumber());
+        response.put("TotalItems", appointmentsPage.getTotalElements());
+        response.put("TotalPages", appointmentsPage.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "getAppointmentById/{id}")

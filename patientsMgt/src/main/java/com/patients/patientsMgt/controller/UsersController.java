@@ -1,21 +1,17 @@
 package com.patients.patientsMgt.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.patients.patientsMgt.dto.DoctorsDTO;
 import com.patients.patientsMgt.dto.PatientsDTO;
 import com.patients.patientsMgt.dto.UsersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.patients.patientsMgt.model.Users;
 import com.patients.patientsMgt.services.UsersService;
@@ -29,8 +25,21 @@ public class UsersController {
     private UsersService usersService;
 
     @GetMapping(value = "/all")
-    public List<Users> getAllUsers() {
-        return usersService.getAllUsers();
+    public ResponseEntity<Map<String, Object>> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        Page<Users> usersPage = usersService.getAllUsers(page, size, sortBy, direction);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("Users", usersPage.getContent());
+        response.put("CurrentPage", usersPage.getNumber());
+        response.put("TotalItems", usersPage.getTotalElements());
+        response.put("TotalPages", usersPage.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "getUserById/{id}")

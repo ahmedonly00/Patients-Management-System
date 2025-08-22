@@ -9,6 +9,10 @@ import com.patients.patientsMgt.model.*;
 import com.patients.patientsMgt.repository.ConsultationsRepository;
 import com.patients.patientsMgt.repository.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.patients.patientsMgt.dto.BillingDTO;
@@ -25,6 +29,15 @@ public class BillingService {
 
     @Autowired
     private ConsultationsRepository consultationsRepository;
+
+    public Page<Billing> getAllBills(int page, int size, String sortBy, String direction){
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return billingRepository.findAll(pageable);
+    }
 
     public List<BillingDTO> getBillsByPatient(String email){
         Patients patients = patientsRepository.findByUserEmail(email)

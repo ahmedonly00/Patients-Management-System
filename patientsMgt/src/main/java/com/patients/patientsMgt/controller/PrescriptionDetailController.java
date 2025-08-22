@@ -1,16 +1,14 @@
 package com.patients.patientsMgt.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.patients.patientsMgt.model.Insurance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.patients.patientsMgt.model.PrescriptionDetail;
 import com.patients.patientsMgt.services.PrescriptionDetailService;
@@ -21,9 +19,23 @@ public class PrescriptionDetailController {
     @Autowired
     private PrescriptionDetailService prescriptionDetailService;
 
+
     @GetMapping(value = "/all")
-    public List<PrescriptionDetail> getAllPrescriptionDetails() {
-        return prescriptionDetailService.getAllPrescriptionDetails();
+    public ResponseEntity<Map<String, Object>> getAllPrescriptionDetails(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        Page<PrescriptionDetail> prescriptionDetailPage = prescriptionDetailService.getAllPrescriptionDetails(page, size, sortBy, direction);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("Insurances", prescriptionDetailPage.getContent());
+        response.put("CurrentPage", prescriptionDetailPage.getNumber());
+        response.put("TotalItems", prescriptionDetailPage.getTotalElements());
+        response.put("TotalPages", prescriptionDetailPage.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "getPrescriptionDetailById/{id}")

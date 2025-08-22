@@ -11,6 +11,10 @@ import com.patients.patientsMgt.repository.ConsultationsRepository;
 import com.patients.patientsMgt.repository.PatientsRepository;
 import com.patients.patientsMgt.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,8 +32,13 @@ public class PaymentService {
     @Autowired
     private PatientsRepository patientsRepository;
 
-    public List<Payment> getAllPayments() {
-        return paymentRepository.findAll();
+    public Page<Payment> getAllPayments(int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return paymentRepository.findAll(pageable);
     }
 
     public Optional<Payment> getPaymentById(Long id) {

@@ -4,6 +4,10 @@ import com.patients.patientsMgt.exceptions.customExceptions.ResourceNotFoundExce
 import com.patients.patientsMgt.model.PrescriptionDetail;
 import com.patients.patientsMgt.repository.PrescriptionDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +17,13 @@ public class PrescriptionDetailService {
     @Autowired
     private PrescriptionDetailRepository prescriptionDetailRepository;
 
-    public List<PrescriptionDetail> getAllPrescriptionDetails() {
+    public Page<PrescriptionDetail> getAllPrescriptionDetails(int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
 
-        return prescriptionDetailRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return prescriptionDetailRepository.findAll(pageable);
     }
 
     public PrescriptionDetail getPrescriptionDetailById(Long id) {

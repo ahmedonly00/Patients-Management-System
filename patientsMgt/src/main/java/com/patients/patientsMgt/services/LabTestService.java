@@ -10,6 +10,11 @@ import com.patients.patientsMgt.repository.ConsultationsRepository;
 import com.patients.patientsMgt.repository.DoctorsRepository;
 import com.patients.patientsMgt.repository.PatientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.patients.patientsMgt.dto.LabTestDTO;
@@ -30,15 +35,14 @@ public class LabTestService {
     @Autowired
     private PatientsRepository patientsRepository;
 
-//    public List<LabTestDTO> getLabResults (String email){
-//        List<LabTest> labTests = labTestRepository.findByPatientUserEmail(email);
-//        List<LabTestDTO> dtoList = new ArrayList<>();
-//        for(LabTest lab : labTests){
-//            dtoList.add(new LabTestDTO(lab.getLabTestId(), lab.getTestType(), lab.getTestName(), lab.getTestDate(), lab.getSampleDate(),lab.getResult(),lab.getTestStatus(), lab.getComments()));
-//        }
-//        return dtoList;
-//
-//    }
+    public Page<LabTest> getAllLabTest(int page, int size, String sortBy, String direction){
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size,sort);
+        return labTestRepository.findAll(pageable);
+    }
 
     public List<LabTestDTO> getLabResults (String email){
         Patients patients = patientsRepository.findByUserEmail(email)
