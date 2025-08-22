@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -24,11 +26,16 @@ public class FileEntity {
     @Column(name = "file_type")
     private String fileType;
 
-    @Lob
-    @Column(name = "data")
-    private byte[] data;
+    @Column(name = "file_path")
+    private String filePath;
+
+    @Column(name = "file_size")
+    private Long fileSize;
+
+    @Column(name = "uploaded_at")
+    private LocalDateTime uploadedAt;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patients patient;
+    @JoinColumn(name = "user_id")
+    private Users uploadedBy;
 }

@@ -58,11 +58,14 @@ public class Users implements UserDetails {
     @OneToOne(mappedBy = "user")
     private Doctors doctor;
 
+    @OneToMany(mappedBy = "uploadedBy", cascade = CascadeType.ALL)
+    private List<FileEntity> files;
+
     public Users() {}
 
 
     public Users(Long userId, String email, String password, Role role, boolean isActive,
-            LocalDate lastLogin, LocalDate createdAt, LocalDate updatedAt, Patients patient, Doctors doctor) {
+            LocalDate lastLogin, LocalDate createdAt, LocalDate updatedAt, Patients patient, Doctors doctor, List<FileEntity> files) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -73,6 +76,7 @@ public class Users implements UserDetails {
         this.updatedAt = updatedAt;
         this.patient = patient;
         this.doctor = doctor;
+        this.files = files;
     }
 
     public Long getUserId() {
@@ -183,6 +187,22 @@ public class Users implements UserDetails {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<FileEntity> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileEntity> files) {
+        this.files = files;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public enum Role{

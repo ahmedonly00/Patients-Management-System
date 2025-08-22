@@ -54,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/billing/**").hasRole("PATIENT")
                         .requestMatchers("/api/prescriptions/**").permitAll()
                         .requestMatchers("/api/prescription-details/**").permitAll()
+                        .requestMatchers("/api/files/**").hasAnyRole("PATIENT", "DOCTOR")
 
                         .anyRequest().authenticated()
                 )

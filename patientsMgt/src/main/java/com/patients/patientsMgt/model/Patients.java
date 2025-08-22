@@ -78,9 +78,6 @@ public class Patients {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Medication> medications;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<FileEntity> files;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private Users user;
@@ -103,7 +100,7 @@ public class Patients {
     public Patients(Long patientId, String fullName, LocalDate date_of_birth, Gender gender, String phoneNumber,
             String email, String address, String emergencyContact, LocalDate created_at, LocalDate updated_at,
             List<Appointments> appointments, List<Consultations> consultations,
-            List<Payment> payments, List<Prescription> prescriptions, List<Medication> medications, List<FileEntity> files,Users user) {
+            List<Payment> payments, List<Prescription> prescriptions, List<Medication> medications,Users user) {
         this.patientId = patientId;
         this.fullName = fullName;
         this.date_of_birth = date_of_birth;
@@ -119,7 +116,6 @@ public class Patients {
         this.payments = payments;
         this.prescriptions = prescriptions;
         this.medications = medications;
-        this.files = files;
         this.user = user;
     }
 
@@ -274,14 +270,6 @@ public class Patients {
 
     public void setMedications(List<Medication> medications) {
         this.medications = medications;
-    }
-
-    public List<FileEntity> getFiles() {
-        return files;
-    }
-
-    public void setFiles(List<FileEntity> files) {
-        this.files = files;
     }
 
     public enum Gender {

@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="340c615b-cea6-4b29-ab29-3bd9b3bd3944" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/FileController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/FileEntityDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/FileEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/repository/FileRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/FileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/DepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/DepartmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/controller/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PatientsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/dto/PatientsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/FileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/FileEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Patients.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/model/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/java/com/patients/patientsMgt/services/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patientsMgt/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patientsMgt/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

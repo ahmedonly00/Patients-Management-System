@@ -35,7 +35,6 @@ public class PatientsDTO {
         this.email = email;
         this.address = address;
         this.emergencyContact = emergencyContact;
-       // this.role = role;
     }
 
     public PatientsDTO() {
@@ -104,12 +103,4 @@ public class PatientsDTO {
     public void setEmergencyContact(String emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
-//
-//    public Users.Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(Users.Role role) {
-//        this.role = role;
-//    }
 }
